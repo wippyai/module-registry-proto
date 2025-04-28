@@ -24,7 +24,7 @@ message ResourceRef {
     }];
     oneof version {
       // The name of the Label.
-      string label = 3 [(buf.validate.field).string.max_len = 64];
+      string label = 3 [(buf.validate.field).string.max_len = 60];
       // The commit or something else.
       string ref = 4 [(buf.validate.field).string.max_len = 64];
     }

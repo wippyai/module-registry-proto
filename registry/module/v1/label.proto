@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
+
+// A label on a specific Module.
+// Many Labels can be associated with one Commit.
+message Label {
+  // The id of the Label.
+  string id = 1;
+  // Unique within a given Module.
+  string name = 2;
+  // The id of the Module that the Label is associated with.
+  string module_id = 3;
+  // The id of the Commit currently associated with the Label.
+  string commit_id = 4;
+  // The id of the User that last modified this Label.
+  string updated_by_user_id = 5;
+  google.protobuf.Timestamp create_time = 6;
+  google.protobuf.Timestamp update_time = 7;
+}
