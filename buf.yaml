@@ -1,0 +1,14 @@
+version: v2
+deps:
+  - buf.build/bufbuild/protovalidate
+lint:
+  use:
+    - STANDARD
+    - COMMENT_ENUM
+    - COMMENT_RPC
+    - COMMENT_SERVICE
+  disallow_comment_ignores: true
+  enum_zero_value_suffix: _UNSPECIFIED
+breaking:
+  use:
+    - FILE

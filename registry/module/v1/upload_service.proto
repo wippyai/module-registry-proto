@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "registry/module/v1/commit.proto";
+import "registry/module/v1/file.proto";
+import "registry/module/v1/module.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+
+// Upload contents.
+service UploadService {
+  // Upload contents for the given Module.
+  rpc Upload(UploadRequest) returns (UploadResponse) {}
+}
+
+message UploadRequest {
+  // The Module of the reference.
+  ModuleRef module_ref = 1 [(buf.validate.field).required = true];
+  // The Files of the Content.
+  repeated File files = 2 [(buf.validate.field).repeated.min_items = 1];
+}
+
+message UploadResponse {
+  // The created commit
+  Commit commit = 1;
+}

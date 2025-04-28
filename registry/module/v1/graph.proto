@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "registry/module/v1/commit.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+
+// A dependency graph.
+message Graph {
+  // A node in the dependency graph.
+  message Node {
+    // The commit of the node.
+    string commit_id = 1 [
+      (buf.validate.field).required = true,
+      (buf.validate.field).string.uuid = true
+    ];
+  }
+  // An edge in the dependency graph.
+  message Edge {
+    // The Node of the start of the edge.
+    Node from_node = 1 [(buf.validate.field).required = true];
+    // The Node of the end of the edge.
+    Node to_node = 2 [(buf.validate.field).required = true];
+  }
+
+  // The nodes of the graph, each of which are Commits.
+  repeated Commit commits = 1 [(buf.validate.field).repeated.min_items = 1];
+  // The edges of the graph.
+  repeated Edge edges = 2;
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "registry/module/v1/module.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+
+// Manage modules.
+service ModuleService {
+  // Create new Module.
+  rpc CreateModule(CreateModuleRequest) returns (CreateModuleResponse) {
+    option idempotency_level = IDEMPOTENT;
+  }
+  // List Modules for a specific User or Organization.
+  rpc ListModules(ListModulesRequest) returns (ListModulesResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message ListModulesRequest {
+  // Module ids or names.
+  repeated ModuleRef module_refs = 1 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 32
+  ];
+}
+
+message ListModulesResponse {
+  // The listed Modules.
+  repeated Module modules = 2;
+}
+
+message CreateModuleRequest {
+  // The Organization to create the Module under.
+  string organization_id = 1 [(buf.validate.field).string.uuid = true];
+  // The name of the Module.
+  string name = 2 [(buf.validate.field).string = {
+    min_len: 2
+    max_len: 64
+  }];
+}
+
+message CreateModuleResponse {
+  // The created Module.
+  Module module = 1;
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+
+// A commit on a specific Module.
+message Commit {
+  string id = 1 [(buf.validate.field).string.uuid = true];
+  string organization_id = 2 [(buf.validate.field).string.uuid = true];
+  string module_id = 3 [(buf.validate.field).string.uuid = true];
+  string digest = 4 [(buf.validate.field).string.max_len = 100];
+  string created_by_user_id = 5 [(buf.validate.field).string.uuid = true];
+  google.protobuf.Timestamp create_time = 6;
+}
