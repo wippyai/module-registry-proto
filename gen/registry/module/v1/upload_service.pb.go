@@ -133,7 +133,7 @@ const file_registry_module_v1_upload_service_proto_rawDesc = "" +
 	"\x0eUploadResponse\x122\n" +
 	"\x06commit\x18\x01 \x01(\v2\x1a.registry.module.v1.CommitR\x06commit2b\n" +
 	"\rUploadService\x12Q\n" +
-	"\x06Upload\x12!.registry.module.v1.UploadRequest\x1a\".registry.module.v1.UploadResponse\"\x00BIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\x06Upload\x12!.registry.module.v1.UploadRequest\x1a\".registry.module.v1.UploadResponse\"\x00BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_upload_service_proto_rawDescOnce sync.Once

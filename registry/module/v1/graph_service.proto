@@ -6,7 +6,7 @@ import "buf/validate/validate.proto";
 import "registry/module/v1/graph.proto";
 import "registry/module/v1/resource.proto";
 
-option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
 
 // Dependency graphs view.
 service GraphService {

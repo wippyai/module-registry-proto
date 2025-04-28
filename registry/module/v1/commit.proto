@@ -5,7 +5,7 @@ package registry.module.v1;
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
 
 // A commit on a specific Module.
 message Commit {

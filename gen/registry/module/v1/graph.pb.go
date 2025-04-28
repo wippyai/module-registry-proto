@@ -190,7 +190,7 @@ const file_registry_module_v1_graph_proto_rawDesc = "" +
 	"\tcommit_id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bcommitId\x1a\x8c\x01\n" +
 	"\x04Edge\x12C\n" +
 	"\tfrom_node\x18\x01 \x01(\v2\x1e.registry.module.v1.Graph.NodeB\x06\xbaH\x03\xc8\x01\x01R\bfromNode\x12?\n" +
-	"\ato_node\x18\x02 \x01(\v2\x1e.registry.module.v1.Graph.NodeB\x06\xbaH\x03\xc8\x01\x01R\x06toNodeBIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\ato_node\x18\x02 \x01(\v2\x1e.registry.module.v1.Graph.NodeB\x06\xbaH\x03\xc8\x01\x01R\x06toNodeBJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_graph_proto_rawDescOnce sync.Once

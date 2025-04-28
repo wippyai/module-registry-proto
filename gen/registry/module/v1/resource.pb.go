@@ -227,7 +227,7 @@ const file_registry_module_v1_resource_proto_rawDesc = "" +
 	"\x05label\x18\x03 \x01(\tB\a\xbaH\x04r\x02\x18@H\x00R\x05label\x12\x1b\n" +
 	"\x03ref\x18\x04 \x01(\tB\a\xbaH\x04r\x02\x18@H\x00R\x03refB\t\n" +
 	"\aversionB\x0e\n" +
-	"\x05value\x12\x05\xbaH\x02\b\x01BIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\x05value\x12\x05\xbaH\x02\b\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_resource_proto_rawDescOnce sync.Once

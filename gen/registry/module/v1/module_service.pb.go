@@ -229,7 +229,7 @@ const file_registry_module_v1_module_service_proto_rawDesc = "" +
 	"\x06module\x18\x01 \x01(\v2\x1a.registry.module.v1.ModuleR\x06module2\xdc\x01\n" +
 	"\rModuleService\x12f\n" +
 	"\fCreateModule\x12'.registry.module.v1.CreateModuleRequest\x1a(.registry.module.v1.CreateModuleResponse\"\x03\x90\x02\x02\x12c\n" +
-	"\vListModules\x12&.registry.module.v1.ListModulesRequest\x1a'.registry.module.v1.ListModulesResponse\"\x03\x90\x02\x01BIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\vListModules\x12&.registry.module.v1.ListModulesRequest\x1a'.registry.module.v1.ListModulesResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_module_service_proto_rawDescOnce sync.Once

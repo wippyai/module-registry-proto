@@ -89,7 +89,7 @@ const file_registry_module_v1_file_proto_rawDesc = "" +
 	"\x04File\x12i\n" +
 	"\x04path\x18\x01 \x01(\tBU\xbaHR\xc8\x01\x01rM\x18\x80 2D^([^/.][^/]?|[^/][^/.]|[^/]{3,})(/([^/.][^/]?|[^/][^/.]|[^/]{3,}))*$\xba\x01\x01\\R\x04path\x12$\n" +
 	"\acontent\x18\x02 \x01(\fB\n" +
-	"\xbaH\az\x05\x18\x80\xad\xe2\x04R\acontentBIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\xbaH\az\x05\x18\x80\xad\xe2\x04R\acontentBJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_file_proto_rawDescOnce sync.Once

@@ -8,7 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/wippyai/module-registry-proto/go/registry/module/v1"
+	v1 "github.com/wippyai/module-registry-proto/gen/registry/module/v1"
 	http "net/http"
 	strings "strings"
 )

@@ -120,7 +120,7 @@ const file_registry_module_v1_commit_proto_rawDesc = "" +
 	"\x06digest\x18\x04 \x01(\tB\a\xbaH\x04r\x02\x18dR\x06digest\x125\n" +
 	"\x12created_by_user_id\x18\x05 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x0fcreatedByUserId\x12;\n" +
 	"\vcreate_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"createTimeBIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"createTimeBJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_commit_proto_rawDescOnce sync.Once

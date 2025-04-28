@@ -4,7 +4,7 @@ package registry.module.v1;
 
 import "buf/validate/validate.proto";
 
-option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
 
 // A reference to any of:
 //   - Label

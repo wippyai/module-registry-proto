@@ -124,7 +124,7 @@ const file_registry_module_v1_graph_service_proto_rawDesc = "" +
 	"\x10GetGraphResponse\x12/\n" +
 	"\x05graph\x18\x01 \x01(\v2\x19.registry.module.v1.GraphR\x05graph2j\n" +
 	"\fGraphService\x12Z\n" +
-	"\bGetGraph\x12#.registry.module.v1.GetGraphRequest\x1a$.registry.module.v1.GetGraphResponse\"\x03\x90\x02\x01BIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\bGetGraph\x12#.registry.module.v1.GetGraphRequest\x1a$.registry.module.v1.GetGraphResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_graph_service_proto_rawDescOnce sync.Once

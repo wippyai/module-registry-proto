@@ -7,7 +7,7 @@ import "registry/module/v1/commit.proto";
 import "registry/module/v1/file.proto";
 import "registry/module/v1/module.proto";
 
-option go_package = "github.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1";
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
 
 // Upload contents.
 service UploadService {

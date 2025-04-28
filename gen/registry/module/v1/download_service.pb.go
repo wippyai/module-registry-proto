@@ -179,7 +179,7 @@ const file_registry_module_v1_download_service_proto_rawDesc = "" +
 	"\x06commit\x18\x01 \x01(\v2\x1a.registry.module.v1.CommitB\x06\xbaH\x03\xc8\x01\x01R\x06commit\x12.\n" +
 	"\x05files\x18\x02 \x03(\v2\x18.registry.module.v1.FileR\x05files2m\n" +
 	"\x0fDownloadService\x12Z\n" +
-	"\bDownload\x12#.registry.module.v1.DownloadRequest\x1a$.registry.module.v1.DownloadResponse\"\x03\x90\x02\x01BIZGgithub.com/wippyai/module-registry-proto/go/registry/module/v1;modulev1b\x06proto3"
+	"\bDownload\x12#.registry.module.v1.DownloadRequest\x1a$.registry.module.v1.DownloadResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_download_service_proto_rawDescOnce sync.Once
