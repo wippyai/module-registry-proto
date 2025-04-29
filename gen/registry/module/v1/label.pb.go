@@ -35,10 +35,9 @@ type Label struct {
 	ModuleId string `protobuf:"bytes,3,opt,name=module_id,json=moduleId,proto3" json:"module_id,omitempty"`
 	// The id of the Commit currently associated with the Label.
 	CommitId string `protobuf:"bytes,4,opt,name=commit_id,json=commitId,proto3" json:"commit_id,omitempty"`
-	// The id of the User that last modified this Label.
-	UpdatedByUserId string                 `protobuf:"bytes,5,opt,name=updated_by_user_id,json=updatedByUserId,proto3" json:"updated_by_user_id,omitempty"`
+	// The id of the User that created this Label.
+	CreatedByUserId string                 `protobuf:"bytes,5,opt,name=created_by_user_id,json=createdByUserId,proto3" json:"created_by_user_id,omitempty"`
 	CreateTime      *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
-	UpdateTime      *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=update_time,json=updateTime,proto3" json:"update_time,omitempty"`
 	unknownFields   protoimpl.UnknownFields
 	sizeCache       protoimpl.SizeCache
 }
@@ -101,9 +100,9 @@ func (x *Label) GetCommitId() string {
 	return ""
 }
 
-func (x *Label) GetUpdatedByUserId() string {
+func (x *Label) GetCreatedByUserId() string {
 	if x != nil {
-		return x.UpdatedByUserId
+		return x.CreatedByUserId
 	}
 	return ""
 }
@@ -115,28 +114,19 @@ func (x *Label) GetCreateTime() *timestamppb.Timestamp {
 	return nil
 }
 
-func (x *Label) GetUpdateTime() *timestamppb.Timestamp {
-	if x != nil {
-		return x.UpdateTime
-	}
-	return nil
-}
-
 var File_registry_module_v1_label_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_label_proto_rawDesc = "" +
 	"\n" +
-	"\x1eregistry/module/v1/label.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x8c\x02\n" +
+	"\x1eregistry/module/v1/label.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xcf\x01\n" +
 	"\x05Label\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1b\n" +
 	"\tmodule_id\x18\x03 \x01(\tR\bmoduleId\x12\x1b\n" +
 	"\tcommit_id\x18\x04 \x01(\tR\bcommitId\x12+\n" +
-	"\x12updated_by_user_id\x18\x05 \x01(\tR\x0fupdatedByUserId\x12;\n" +
+	"\x12created_by_user_id\x18\x05 \x01(\tR\x0fcreatedByUserId\x12;\n" +
 	"\vcreate_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"createTime\x12;\n" +
-	"\vupdate_time\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"updateTimeBJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
+	"createTimeBJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_label_proto_rawDescOnce sync.Once
@@ -157,12 +147,11 @@ var file_registry_module_v1_label_proto_goTypes = []any{
 }
 var file_registry_module_v1_label_proto_depIdxs = []int32{
 	1, // 0: registry.module.v1.Label.create_time:type_name -> google.protobuf.Timestamp
-	1, // 1: registry.module.v1.Label.update_time:type_name -> google.protobuf.Timestamp
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_label_proto_init() }
