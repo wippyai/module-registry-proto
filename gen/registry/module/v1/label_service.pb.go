@@ -130,11 +130,11 @@ var File_registry_module_v1_label_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_label_service_proto_rawDesc = "" +
 	"\n" +
-	"&registry/module/v1/label_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1eregistry/module/v1/label.proto\"\x8a\x01\n" +
+	"&registry/module/v1/label_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1eregistry/module/v1/label.proto\"\xc6\x02\n" +
 	"\x12CreateLabelRequest\x12(\n" +
 	"\tmodule_id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bmoduleId\x12(\n" +
-	"\tcommit_id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bcommitId\x12 \n" +
-	"\x04name\x18\x03 \x01(\tB\f\xbaH\t\xc8\x01\x01r\x04\x10\x03\x18<R\x04name\"F\n" +
+	"\tcommit_id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bcommitId\x12\xdb\x01\n" +
+	"\x04name\x18\x03 \x01(\tB\xc6\x01\xbaH\xc2\x01\xc8\x01\x01r\xbc\x01\x10\x03\x18<2\xb5\x01^v?(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$R\x04name\"F\n" +
 	"\x13CreateLabelResponse\x12/\n" +
 	"\x05label\x18\x01 \x01(\v2\x19.registry.module.v1.LabelR\x05label2s\n" +
 	"\fLabelService\x12c\n" +
