@@ -18,8 +18,7 @@ message Label {
   string module_id = 3;
   // The id of the Commit currently associated with the Label.
   string commit_id = 4;
-  // The id of the User that last modified this Label.
-  string updated_by_user_id = 5;
+  // The id of the User that created this Label.
+  string created_by_user_id = 5;
   google.protobuf.Timestamp create_time = 6;
-  google.protobuf.Timestamp update_time = 7;
 }
