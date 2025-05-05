@@ -33,14 +33,14 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// UserServiceCreateUsersProcedure is the fully-qualified name of the UserService's CreateUsers RPC.
-	UserServiceCreateUsersProcedure = "/registry.identity.v1.UserService/CreateUsers"
+	// UserServiceCreateUserProcedure is the fully-qualified name of the UserService's CreateUser RPC.
+	UserServiceCreateUserProcedure = "/registry.identity.v1.UserService/CreateUser"
 )
 
 // UserServiceClient is a client for the registry.identity.v1.UserService service.
 type UserServiceClient interface {
 	// Create new user.
-	CreateUsers(context.Context, *connect.Request[v1.CreateUsersRequest]) (*connect.Response[v1.CreateUsersResponse], error)
+	CreateUser(context.Context, *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error)
 }
 
 // NewUserServiceClient constructs a client for the registry.identity.v1.UserService service. By
@@ -54,10 +54,10 @@ func NewUserServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 	baseURL = strings.TrimRight(baseURL, "/")
 	userServiceMethods := v1.File_registry_identity_v1_user_service_proto.Services().ByName("UserService").Methods()
 	return &userServiceClient{
-		createUsers: connect.NewClient[v1.CreateUsersRequest, v1.CreateUsersResponse](
+		createUser: connect.NewClient[v1.CreateUserRequest, v1.CreateUserResponse](
 			httpClient,
-			baseURL+UserServiceCreateUsersProcedure,
-			connect.WithSchema(userServiceMethods.ByName("CreateUsers")),
+			baseURL+UserServiceCreateUserProcedure,
+			connect.WithSchema(userServiceMethods.ByName("CreateUser")),
 			connect.WithIdempotency(connect.IdempotencyIdempotent),
 			connect.WithClientOptions(opts...),
 		),
@@ -66,18 +66,18 @@ func NewUserServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 
 // userServiceClient implements UserServiceClient.
 type userServiceClient struct {
-	createUsers *connect.Client[v1.CreateUsersRequest, v1.CreateUsersResponse]
+	createUser *connect.Client[v1.CreateUserRequest, v1.CreateUserResponse]
 }
 
-// CreateUsers calls registry.identity.v1.UserService.CreateUsers.
-func (c *userServiceClient) CreateUsers(ctx context.Context, req *connect.Request[v1.CreateUsersRequest]) (*connect.Response[v1.CreateUsersResponse], error) {
-	return c.createUsers.CallUnary(ctx, req)
+// CreateUser calls registry.identity.v1.UserService.CreateUser.
+func (c *userServiceClient) CreateUser(ctx context.Context, req *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error) {
+	return c.createUser.CallUnary(ctx, req)
 }
 
 // UserServiceHandler is an implementation of the registry.identity.v1.UserService service.
 type UserServiceHandler interface {
 	// Create new user.
-	CreateUsers(context.Context, *connect.Request[v1.CreateUsersRequest]) (*connect.Response[v1.CreateUsersResponse], error)
+	CreateUser(context.Context, *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error)
 }
 
 // NewUserServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -87,17 +87,17 @@ type UserServiceHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewUserServiceHandler(svc UserServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
 	userServiceMethods := v1.File_registry_identity_v1_user_service_proto.Services().ByName("UserService").Methods()
-	userServiceCreateUsersHandler := connect.NewUnaryHandler(
-		UserServiceCreateUsersProcedure,
-		svc.CreateUsers,
-		connect.WithSchema(userServiceMethods.ByName("CreateUsers")),
+	userServiceCreateUserHandler := connect.NewUnaryHandler(
+		UserServiceCreateUserProcedure,
+		svc.CreateUser,
+		connect.WithSchema(userServiceMethods.ByName("CreateUser")),
 		connect.WithIdempotency(connect.IdempotencyIdempotent),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/registry.identity.v1.UserService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case UserServiceCreateUsersProcedure:
-			userServiceCreateUsersHandler.ServeHTTP(w, r)
+		case UserServiceCreateUserProcedure:
+			userServiceCreateUserHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -107,6 +107,6 @@ func NewUserServiceHandler(svc UserServiceHandler, opts ...connect.HandlerOption
 // UnimplementedUserServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedUserServiceHandler struct{}
 
-func (UnimplementedUserServiceHandler) CreateUsers(context.Context, *connect.Request[v1.CreateUsersRequest]) (*connect.Response[v1.CreateUsersResponse], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.identity.v1.UserService.CreateUsers is not implemented"))
+func (UnimplementedUserServiceHandler) CreateUser(context.Context, *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.identity.v1.UserService.CreateUser is not implemented"))
 }

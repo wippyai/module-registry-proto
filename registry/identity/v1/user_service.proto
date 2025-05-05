@@ -10,12 +10,12 @@ option go_package = "github.com/wippyai/module-registry-proto/gen/registry/ident
 // User management operations.
 service UserService {
   // Create new user.
-  rpc CreateUsers(CreateUsersRequest) returns (CreateUsersResponse) {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
     option idempotency_level = IDEMPOTENT;
   }
 }
 
-message CreateUsersRequest {
+message CreateUserRequest {
   // User name
   string name = 1 [
     (buf.validate.field).required = true,
@@ -25,6 +25,6 @@ message CreateUsersRequest {
   ];
 }
 
-message CreateUsersResponse {
-  User users = 1;
+message CreateUserResponse {
+  User user = 1;
 }

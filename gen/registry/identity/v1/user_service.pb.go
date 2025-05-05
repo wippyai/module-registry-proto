@@ -22,7 +22,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type CreateUsersRequest struct {
+type CreateUserRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// User name
 	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -30,20 +30,20 @@ type CreateUsersRequest struct {
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateUsersRequest) Reset() {
-	*x = CreateUsersRequest{}
+func (x *CreateUserRequest) Reset() {
+	*x = CreateUserRequest{}
 	mi := &file_registry_identity_v1_user_service_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateUsersRequest) String() string {
+func (x *CreateUserRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateUsersRequest) ProtoMessage() {}
+func (*CreateUserRequest) ProtoMessage() {}
 
-func (x *CreateUsersRequest) ProtoReflect() protoreflect.Message {
+func (x *CreateUserRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_registry_identity_v1_user_service_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,39 +55,39 @@ func (x *CreateUsersRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateUsersRequest.ProtoReflect.Descriptor instead.
-func (*CreateUsersRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateUserRequest.ProtoReflect.Descriptor instead.
+func (*CreateUserRequest) Descriptor() ([]byte, []int) {
 	return file_registry_identity_v1_user_service_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *CreateUsersRequest) GetName() string {
+func (x *CreateUserRequest) GetName() string {
 	if x != nil {
 		return x.Name
 	}
 	return ""
 }
 
-type CreateUsersResponse struct {
+type CreateUserResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Users         *User                  `protobuf:"bytes,1,opt,name=users,proto3" json:"users,omitempty"`
+	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *CreateUsersResponse) Reset() {
-	*x = CreateUsersResponse{}
+func (x *CreateUserResponse) Reset() {
+	*x = CreateUserResponse{}
 	mi := &file_registry_identity_v1_user_service_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *CreateUsersResponse) String() string {
+func (x *CreateUserResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*CreateUsersResponse) ProtoMessage() {}
+func (*CreateUserResponse) ProtoMessage() {}
 
-func (x *CreateUsersResponse) ProtoReflect() protoreflect.Message {
+func (x *CreateUserResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_registry_identity_v1_user_service_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -99,14 +99,14 @@ func (x *CreateUsersResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use CreateUsersResponse.ProtoReflect.Descriptor instead.
-func (*CreateUsersResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use CreateUserResponse.ProtoReflect.Descriptor instead.
+func (*CreateUserResponse) Descriptor() ([]byte, []int) {
 	return file_registry_identity_v1_user_service_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *CreateUsersResponse) GetUsers() *User {
+func (x *CreateUserResponse) GetUser() *User {
 	if x != nil {
-		return x.Users
+		return x.User
 	}
 	return nil
 }
@@ -115,13 +115,14 @@ var File_registry_identity_v1_user_service_proto protoreflect.FileDescriptor
 
 const file_registry_identity_v1_user_service_proto_rawDesc = "" +
 	"\n" +
-	"'registry/identity/v1/user_service.proto\x12\x14registry.identity.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/identity/v1/user.proto\"Q\n" +
-	"\x12CreateUsersRequest\x12;\n" +
-	"\x04name\x18\x01 \x01(\tB'\xbaH$\xc8\x01\x01r\x1f\x10\x02\x18 2\x19^[a-z][a-z0-9-]*[a-z0-9]$R\x04name\"G\n" +
-	"\x13CreateUsersResponse\x120\n" +
-	"\x05users\x18\x01 \x01(\v2\x1a.registry.identity.v1.UserR\x05users2v\n" +
-	"\vUserService\x12g\n" +
-	"\vCreateUsers\x12(.registry.identity.v1.CreateUsersRequest\x1a).registry.identity.v1.CreateUsersResponse\"\x03\x90\x02\x02BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
+	"'registry/identity/v1/user_service.proto\x12\x14registry.identity.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/identity/v1/user.proto\"P\n" +
+	"\x11CreateUserRequest\x12;\n" +
+	"\x04name\x18\x01 \x01(\tB'\xbaH$\xc8\x01\x01r\x1f\x10\x02\x18 2\x19^[a-z][a-z0-9-]*[a-z0-9]$R\x04name\"D\n" +
+	"\x12CreateUserResponse\x12.\n" +
+	"\x04user\x18\x01 \x01(\v2\x1a.registry.identity.v1.UserR\x04user2s\n" +
+	"\vUserService\x12d\n" +
+	"\n" +
+	"CreateUser\x12'.registry.identity.v1.CreateUserRequest\x1a(.registry.identity.v1.CreateUserResponse\"\x03\x90\x02\x02BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
 
 var (
 	file_registry_identity_v1_user_service_proto_rawDescOnce sync.Once
@@ -137,14 +138,14 @@ func file_registry_identity_v1_user_service_proto_rawDescGZIP() []byte {
 
 var file_registry_identity_v1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_registry_identity_v1_user_service_proto_goTypes = []any{
-	(*CreateUsersRequest)(nil),  // 0: registry.identity.v1.CreateUsersRequest
-	(*CreateUsersResponse)(nil), // 1: registry.identity.v1.CreateUsersResponse
-	(*User)(nil),                // 2: registry.identity.v1.User
+	(*CreateUserRequest)(nil),  // 0: registry.identity.v1.CreateUserRequest
+	(*CreateUserResponse)(nil), // 1: registry.identity.v1.CreateUserResponse
+	(*User)(nil),               // 2: registry.identity.v1.User
 }
 var file_registry_identity_v1_user_service_proto_depIdxs = []int32{
-	2, // 0: registry.identity.v1.CreateUsersResponse.users:type_name -> registry.identity.v1.User
-	0, // 1: registry.identity.v1.UserService.CreateUsers:input_type -> registry.identity.v1.CreateUsersRequest
-	1, // 2: registry.identity.v1.UserService.CreateUsers:output_type -> registry.identity.v1.CreateUsersResponse
+	2, // 0: registry.identity.v1.CreateUserResponse.user:type_name -> registry.identity.v1.User
+	0, // 1: registry.identity.v1.UserService.CreateUser:input_type -> registry.identity.v1.CreateUserRequest
+	1, // 2: registry.identity.v1.UserService.CreateUser:output_type -> registry.identity.v1.CreateUserResponse
 	2, // [2:3] is the sub-list for method output_type
 	1, // [1:2] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
