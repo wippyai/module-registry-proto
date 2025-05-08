@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package registry.identity.v1;
+
+import "buf/validate/validate.proto";
+import "registry/identity/v1/organization_membership.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1";
+
+// Organization membership management operations.
+service OrganizationMembershipService {
+  // Add a member to an organization.
+  rpc AddOrganizationMember(AddOrganizationMemberRequest) returns (AddOrganizationMemberResponse) {
+    option idempotency_level = IDEMPOTENT;
+  }
+}
+
+message AddOrganizationMemberRequest {
+  // The id of the organization.
+  string organization_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // The id of the user.
+  string user_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+}
+
+message AddOrganizationMemberResponse {
+  // The created membership.
+  OrganizationMembership membership = 1;
+}
