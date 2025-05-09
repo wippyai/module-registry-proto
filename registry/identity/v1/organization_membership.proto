@@ -4,6 +4,7 @@ package registry.identity.v1;
 
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
+import "registry/identity/v1/organization_role.proto";
 
 option go_package = "github.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1";
 
@@ -28,17 +29,11 @@ message OrganizationMembership {
   ];
 
   // The role of the user in the organization.
-  reserved 4;
+  OrganizationRole role = 4 [(buf.validate.field).required = true];
 
   // The time the membership was created.
   google.protobuf.Timestamp create_time = 5 [(buf.validate.field).required = true];
 
   // The last time the membership was updated.
   google.protobuf.Timestamp update_time = 6 [(buf.validate.field).required = true];
-
-  // Role of a user in an organization.
-  enum Role {
-    // Unspecified role.
-    ROLE_UNSPECIFIED = 0;
-  }
 }
