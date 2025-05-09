@@ -7,7 +7,6 @@
 package modulev1
 
 import (
-	_ "buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
@@ -118,7 +117,7 @@ var File_registry_module_v1_label_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_label_proto_rawDesc = "" +
 	"\n" +
-	"\x1eregistry/module/v1/label.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xcf\x01\n" +
+	"\x1eregistry/module/v1/label.proto\x12\x12registry.module.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xcf\x01\n" +
 	"\x05Label\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x1b\n" +

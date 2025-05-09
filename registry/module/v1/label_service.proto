@@ -12,7 +12,7 @@ service LabelService {
   // Create Label on a Module.
   rpc CreateLabel(CreateLabelRequest) returns (CreateLabelResponse) {
     option idempotency_level = IDEMPOTENT;
-  };
+  }
 }
 
 message CreateLabelRequest {
@@ -37,4 +37,3 @@ message CreateLabelRequest {
 message CreateLabelResponse {
   Label label = 1;
 }
-

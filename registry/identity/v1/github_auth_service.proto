@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package registry.identity.v1;
+
+import "buf/validate/validate.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1";
+
+// GitHub authentication operations.
+service GithubAuthService {
+  // Start GitHub OAuth flow.
+  rpc GithubOauthLogin(GithubOauthLoginRequest) returns (GithubOauthLoginResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+
+  // Handle GitHub OAuth callback.
+  rpc GithubOauthCallback(GithubOauthCallbackRequest) returns (GithubOauthCallbackResponse) {
+    option idempotency_level = IDEMPOTENT;
+  }
+}
+
+message GithubOauthLoginRequest {}
+
+message GithubOauthLoginResponse {
+  // GitHub OAuth authorization URL to redirect the user to
+  string authorization_url = 1;
+}
+
+message GithubOauthCallbackRequest {
+  // Authorization code from GitHub
+  string code = 1 [(buf.validate.field).required = true];
+
+  // State parameter for CSRF protection
+  string state = 2 [(buf.validate.field).required = true];
+}
+
+message GithubOauthCallbackResponse {
+  // Authentication token
+  string auth_token = 2;
+}

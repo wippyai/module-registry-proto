@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package registry.identity.v1;
+
+import "buf/validate/validate.proto";
+import "registry/identity/v1/user.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1";
+
+// User management operations.
+service UserService {
+  // Create new user.
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option idempotency_level = IDEMPOTENT;
+  }
+}
+
+message CreateUserRequest {
+  // User name
+  string name = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 2,
+    (buf.validate.field).string.max_len = 32,
+    (buf.validate.field).string.pattern = "^[a-z][a-z0-9-]*[a-z0-9]$"
+  ];
+}
+
+message CreateUserResponse {
+  User user = 1;
+}
