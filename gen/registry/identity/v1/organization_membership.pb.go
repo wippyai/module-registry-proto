@@ -23,51 +23,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// Role of a user in an organization.
-type OrganizationMembership_Role int32
-
-const (
-	// Unspecified role.
-	OrganizationMembership_ROLE_UNSPECIFIED OrganizationMembership_Role = 0
-)
-
-// Enum value maps for OrganizationMembership_Role.
-var (
-	OrganizationMembership_Role_name = map[int32]string{
-		0: "ROLE_UNSPECIFIED",
-	}
-	OrganizationMembership_Role_value = map[string]int32{
-		"ROLE_UNSPECIFIED": 0,
-	}
-)
-
-func (x OrganizationMembership_Role) Enum() *OrganizationMembership_Role {
-	p := new(OrganizationMembership_Role)
-	*p = x
-	return p
-}
-
-func (x OrganizationMembership_Role) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (OrganizationMembership_Role) Descriptor() protoreflect.EnumDescriptor {
-	return file_registry_identity_v1_organization_membership_proto_enumTypes[0].Descriptor()
-}
-
-func (OrganizationMembership_Role) Type() protoreflect.EnumType {
-	return &file_registry_identity_v1_organization_membership_proto_enumTypes[0]
-}
-
-func (x OrganizationMembership_Role) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use OrganizationMembership_Role.Descriptor instead.
-func (OrganizationMembership_Role) EnumDescriptor() ([]byte, []int) {
-	return file_registry_identity_v1_organization_membership_proto_rawDescGZIP(), []int{0, 0}
-}
-
 // Represents a user's membership in an organization.
 type OrganizationMembership struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -77,6 +32,8 @@ type OrganizationMembership struct {
 	OrganizationId string `protobuf:"bytes,2,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
 	// The id of the user.
 	UserId string `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// The role of the user in the organization.
+	Role OrganizationRole `protobuf:"varint,4,opt,name=role,proto3,enum=registry.identity.v1.OrganizationRole" json:"role,omitempty"`
 	// The time the membership was created.
 	CreateTime *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=create_time,json=createTime,proto3" json:"create_time,omitempty"`
 	// The last time the membership was updated.
@@ -136,6 +93,13 @@ func (x *OrganizationMembership) GetUserId() string {
 	return ""
 }
 
+func (x *OrganizationMembership) GetRole() OrganizationRole {
+	if x != nil {
+		return x.Role
+	}
+	return OrganizationRole_ORGANIZATION_ROLE_UNSPECIFIED
+}
+
 func (x *OrganizationMembership) GetCreateTime() *timestamppb.Timestamp {
 	if x != nil {
 		return x.CreateTime
@@ -154,17 +118,16 @@ var File_registry_identity_v1_organization_membership_proto protoreflect.FileDes
 
 const file_registry_identity_v1_organization_membership_proto_rawDesc = "" +
 	"\n" +
-	"2registry/identity/v1/organization_membership.proto\x12\x14registry.identity.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xbf\x02\n" +
+	"2registry/identity/v1/organization_membership.proto\x12\x14registry.identity.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a,registry/identity/v1/organization_role.proto\"\xdf\x02\n" +
 	"\x16OrganizationMembership\x12\x1b\n" +
 	"\x02id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id\x124\n" +
 	"\x0forganization_id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x0eorganizationId\x12$\n" +
-	"\auser_id\x18\x03 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x06userId\x12C\n" +
+	"\auser_id\x18\x03 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x06userId\x12B\n" +
+	"\x04role\x18\x04 \x01(\x0e2&.registry.identity.v1.OrganizationRoleB\x06\xbaH\x03\xc8\x01\x01R\x04role\x12C\n" +
 	"\vcreate_time\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampB\x06\xbaH\x03\xc8\x01\x01R\n" +
 	"createTime\x12C\n" +
 	"\vupdate_time\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampB\x06\xbaH\x03\xc8\x01\x01R\n" +
-	"updateTime\"\x1c\n" +
-	"\x04Role\x12\x14\n" +
-	"\x10ROLE_UNSPECIFIED\x10\x00J\x04\b\x04\x10\x05BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
+	"updateTimeBNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
 
 var (
 	file_registry_identity_v1_organization_membership_proto_rawDescOnce sync.Once
@@ -178,21 +141,21 @@ func file_registry_identity_v1_organization_membership_proto_rawDescGZIP() []byt
 	return file_registry_identity_v1_organization_membership_proto_rawDescData
 }
 
-var file_registry_identity_v1_organization_membership_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_registry_identity_v1_organization_membership_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_registry_identity_v1_organization_membership_proto_goTypes = []any{
-	(OrganizationMembership_Role)(0), // 0: registry.identity.v1.OrganizationMembership.Role
-	(*OrganizationMembership)(nil),   // 1: registry.identity.v1.OrganizationMembership
-	(*timestamppb.Timestamp)(nil),    // 2: google.protobuf.Timestamp
+	(*OrganizationMembership)(nil), // 0: registry.identity.v1.OrganizationMembership
+	(OrganizationRole)(0),          // 1: registry.identity.v1.OrganizationRole
+	(*timestamppb.Timestamp)(nil),  // 2: google.protobuf.Timestamp
 }
 var file_registry_identity_v1_organization_membership_proto_depIdxs = []int32{
-	2, // 0: registry.identity.v1.OrganizationMembership.create_time:type_name -> google.protobuf.Timestamp
-	2, // 1: registry.identity.v1.OrganizationMembership.update_time:type_name -> google.protobuf.Timestamp
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 0: registry.identity.v1.OrganizationMembership.role:type_name -> registry.identity.v1.OrganizationRole
+	2, // 1: registry.identity.v1.OrganizationMembership.create_time:type_name -> google.protobuf.Timestamp
+	2, // 2: registry.identity.v1.OrganizationMembership.update_time:type_name -> google.protobuf.Timestamp
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_registry_identity_v1_organization_membership_proto_init() }
@@ -200,19 +163,19 @@ func file_registry_identity_v1_organization_membership_proto_init() {
 	if File_registry_identity_v1_organization_membership_proto != nil {
 		return
 	}
+	file_registry_identity_v1_organization_role_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_identity_v1_organization_membership_proto_rawDesc), len(file_registry_identity_v1_organization_membership_proto_rawDesc)),
-			NumEnums:      1,
+			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_registry_identity_v1_organization_membership_proto_goTypes,
 		DependencyIndexes: file_registry_identity_v1_organization_membership_proto_depIdxs,
-		EnumInfos:         file_registry_identity_v1_organization_membership_proto_enumTypes,
 		MessageInfos:      file_registry_identity_v1_organization_membership_proto_msgTypes,
 	}.Build()
 	File_registry_identity_v1_organization_membership_proto = out.File
