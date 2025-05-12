@@ -5,7 +5,6 @@ package registry.module.v1;
 import "buf/validate/validate.proto";
 import "registry/module/v1/commit.proto";
 import "registry/module/v1/file.proto";
-import "registry/module/v1/module.proto";
 
 option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
 
@@ -16,8 +15,11 @@ service UploadService {
 }
 
 message UploadRequest {
-  // The Module of the reference.
-  ModuleRef module_ref = 1 [(buf.validate.field).required = true];
+  // The ID of the Module.
+  string module_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
   // The Files of the Content.
   repeated File files = 2 [(buf.validate.field).repeated.min_items = 1];
 }

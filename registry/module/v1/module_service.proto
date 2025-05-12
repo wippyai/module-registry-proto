@@ -13,23 +13,42 @@ service ModuleService {
   rpc CreateModule(CreateModuleRequest) returns (CreateModuleResponse) {
     option idempotency_level = IDEMPOTENT;
   }
-  // List Modules for a specific User or Organization.
+  // List Modules by their IDs.
   rpc ListModules(ListModulesRequest) returns (ListModulesResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+  // List all Modules for specified Organizations.
+  rpc ListOrganizationModules(ListOrganizationModulesRequest) returns (ListOrganizationModulesResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
   }
 }
 
 message ListModulesRequest {
-  // Module ids or names.
-  repeated ModuleRef module_refs = 1 [
+  // Module IDs to retrieve.
+  repeated string module_ids = 1 [
     (buf.validate.field).repeated.min_items = 1,
-    (buf.validate.field).repeated.max_items = 32
+    (buf.validate.field).repeated.max_items = 256,
+    (buf.validate.field).repeated.items.string.uuid = true
   ];
 }
 
 message ListModulesResponse {
   // The listed Modules.
-  repeated Module modules = 2;
+  repeated Module modules = 1;
+}
+
+message ListOrganizationModulesRequest {
+  // Organization ids to list modules for.
+  repeated string organization_ids = 1 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 256,
+    (buf.validate.field).repeated.items.string.uuid = true
+  ];
+}
+
+message ListOrganizationModulesResponse {
+  // The listed Modules.
+  repeated Module modules = 1;
 }
 
 message CreateModuleRequest {

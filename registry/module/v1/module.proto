@@ -16,26 +16,3 @@ message Module {
   google.protobuf.Timestamp create_time = 5;
   google.protobuf.Timestamp update_time = 6;
 }
-
-// ModuleRef is a reference to a Module, either an id or a fully-qualified name.
-message ModuleRef {
-  // A Name uniquely identifies a Module.
-  message Name {
-    string organization = 1 [
-      (buf.validate.field).required = true,
-      (buf.validate.field).string.max_len = 32
-    ];
-    string module = 2 [(buf.validate.field).string = {
-      min_len: 2
-      max_len: 100
-    }];
-  }
-
-  oneof value {
-    option (buf.validate.oneof).required = true;
-    // The id of the Module.
-    string id = 1 [(buf.validate.field).string.uuid = true];
-    // The fully-qualified name of the Module.
-    Name name = 2;
-  }
-}
