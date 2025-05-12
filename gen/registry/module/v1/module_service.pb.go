@@ -24,8 +24,8 @@ const (
 
 type ListModulesRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Module ids or names.
-	ModuleRefs    []*ModuleRef `protobuf:"bytes,1,rep,name=module_refs,json=moduleRefs,proto3" json:"module_refs,omitempty"`
+	// Module IDs to retrieve.
+	ModuleIds     []string `protobuf:"bytes,1,rep,name=module_ids,json=moduleIds,proto3" json:"module_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -60,9 +60,9 @@ func (*ListModulesRequest) Descriptor() ([]byte, []int) {
 	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *ListModulesRequest) GetModuleRefs() []*ModuleRef {
+func (x *ListModulesRequest) GetModuleIds() []string {
 	if x != nil {
-		return x.ModuleRefs
+		return x.ModuleIds
 	}
 	return nil
 }
@@ -70,7 +70,7 @@ func (x *ListModulesRequest) GetModuleRefs() []*ModuleRef {
 type ListModulesResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The listed Modules.
-	Modules       []*Module `protobuf:"bytes,2,rep,name=modules,proto3" json:"modules,omitempty"`
+	Modules       []*Module `protobuf:"bytes,1,rep,name=modules,proto3" json:"modules,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -112,6 +112,96 @@ func (x *ListModulesResponse) GetModules() []*Module {
 	return nil
 }
 
+type ListOrganizationModulesRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Organization ids to list modules for.
+	OrganizationIds []string `protobuf:"bytes,1,rep,name=organization_ids,json=organizationIds,proto3" json:"organization_ids,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+}
+
+func (x *ListOrganizationModulesRequest) Reset() {
+	*x = ListOrganizationModulesRequest{}
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListOrganizationModulesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOrganizationModulesRequest) ProtoMessage() {}
+
+func (x *ListOrganizationModulesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOrganizationModulesRequest.ProtoReflect.Descriptor instead.
+func (*ListOrganizationModulesRequest) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ListOrganizationModulesRequest) GetOrganizationIds() []string {
+	if x != nil {
+		return x.OrganizationIds
+	}
+	return nil
+}
+
+type ListOrganizationModulesResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The listed Modules.
+	Modules       []*Module `protobuf:"bytes,1,rep,name=modules,proto3" json:"modules,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListOrganizationModulesResponse) Reset() {
+	*x = ListOrganizationModulesResponse{}
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListOrganizationModulesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListOrganizationModulesResponse) ProtoMessage() {}
+
+func (x *ListOrganizationModulesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListOrganizationModulesResponse.ProtoReflect.Descriptor instead.
+func (*ListOrganizationModulesResponse) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListOrganizationModulesResponse) GetModules() []*Module {
+	if x != nil {
+		return x.Modules
+	}
+	return nil
+}
+
 type CreateModuleRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The Organization to create the Module under.
@@ -124,7 +214,7 @@ type CreateModuleRequest struct {
 
 func (x *CreateModuleRequest) Reset() {
 	*x = CreateModuleRequest{}
-	mi := &file_registry_module_v1_module_service_proto_msgTypes[2]
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -136,7 +226,7 @@ func (x *CreateModuleRequest) String() string {
 func (*CreateModuleRequest) ProtoMessage() {}
 
 func (x *CreateModuleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_module_v1_module_service_proto_msgTypes[2]
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -149,7 +239,7 @@ func (x *CreateModuleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateModuleRequest.ProtoReflect.Descriptor instead.
 func (*CreateModuleRequest) Descriptor() ([]byte, []int) {
-	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{2}
+	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *CreateModuleRequest) GetOrganizationId() string {
@@ -176,7 +266,7 @@ type CreateModuleResponse struct {
 
 func (x *CreateModuleResponse) Reset() {
 	*x = CreateModuleResponse{}
-	mi := &file_registry_module_v1_module_service_proto_msgTypes[3]
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -188,7 +278,7 @@ func (x *CreateModuleResponse) String() string {
 func (*CreateModuleResponse) ProtoMessage() {}
 
 func (x *CreateModuleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_module_v1_module_service_proto_msgTypes[3]
+	mi := &file_registry_module_v1_module_service_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -201,7 +291,7 @@ func (x *CreateModuleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateModuleResponse.ProtoReflect.Descriptor instead.
 func (*CreateModuleResponse) Descriptor() ([]byte, []int) {
-	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{3}
+	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *CreateModuleResponse) GetModule() *Module {
@@ -215,21 +305,25 @@ var File_registry_module_v1_module_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_module_service_proto_rawDesc = "" +
 	"\n" +
-	"'registry/module/v1/module_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/module.proto\"`\n" +
-	"\x12ListModulesRequest\x12J\n" +
-	"\vmodule_refs\x18\x01 \x03(\v2\x1d.registry.module.v1.ModuleRefB\n" +
-	"\xbaH\a\x92\x01\x04\b\x01\x10 R\n" +
-	"moduleRefs\"K\n" +
+	"'registry/module/v1/module_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/module.proto\"G\n" +
+	"\x12ListModulesRequest\x121\n" +
+	"\n" +
+	"module_ids\x18\x01 \x03(\tB\x12\xbaH\x0f\x92\x01\f\b\x01\x10\x80\x02\"\x05r\x03\xb0\x01\x01R\tmoduleIds\"K\n" +
 	"\x13ListModulesResponse\x124\n" +
-	"\amodules\x18\x02 \x03(\v2\x1a.registry.module.v1.ModuleR\amodules\"g\n" +
+	"\amodules\x18\x01 \x03(\v2\x1a.registry.module.v1.ModuleR\amodules\"_\n" +
+	"\x1eListOrganizationModulesRequest\x12=\n" +
+	"\x10organization_ids\x18\x01 \x03(\tB\x12\xbaH\x0f\x92\x01\f\b\x01\x10\x80\x02\"\x05r\x03\xb0\x01\x01R\x0forganizationIds\"W\n" +
+	"\x1fListOrganizationModulesResponse\x124\n" +
+	"\amodules\x18\x01 \x03(\v2\x1a.registry.module.v1.ModuleR\amodules\"g\n" +
 	"\x13CreateModuleRequest\x121\n" +
 	"\x0forganization_id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x0eorganizationId\x12\x1d\n" +
 	"\x04name\x18\x02 \x01(\tB\t\xbaH\x06r\x04\x10\x02\x18@R\x04name\"J\n" +
 	"\x14CreateModuleResponse\x122\n" +
-	"\x06module\x18\x01 \x01(\v2\x1a.registry.module.v1.ModuleR\x06module2\xdc\x01\n" +
+	"\x06module\x18\x01 \x01(\v2\x1a.registry.module.v1.ModuleR\x06module2\xe6\x02\n" +
 	"\rModuleService\x12f\n" +
 	"\fCreateModule\x12'.registry.module.v1.CreateModuleRequest\x1a(.registry.module.v1.CreateModuleResponse\"\x03\x90\x02\x02\x12c\n" +
-	"\vListModules\x12&.registry.module.v1.ListModulesRequest\x1a'.registry.module.v1.ListModulesResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
+	"\vListModules\x12&.registry.module.v1.ListModulesRequest\x1a'.registry.module.v1.ListModulesResponse\"\x03\x90\x02\x01\x12\x87\x01\n" +
+	"\x17ListOrganizationModules\x122.registry.module.v1.ListOrganizationModulesRequest\x1a3.registry.module.v1.ListOrganizationModulesResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_module_service_proto_rawDescOnce sync.Once
@@ -243,25 +337,28 @@ func file_registry_module_v1_module_service_proto_rawDescGZIP() []byte {
 	return file_registry_module_v1_module_service_proto_rawDescData
 }
 
-var file_registry_module_v1_module_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_registry_module_v1_module_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_registry_module_v1_module_service_proto_goTypes = []any{
-	(*ListModulesRequest)(nil),   // 0: registry.module.v1.ListModulesRequest
-	(*ListModulesResponse)(nil),  // 1: registry.module.v1.ListModulesResponse
-	(*CreateModuleRequest)(nil),  // 2: registry.module.v1.CreateModuleRequest
-	(*CreateModuleResponse)(nil), // 3: registry.module.v1.CreateModuleResponse
-	(*ModuleRef)(nil),            // 4: registry.module.v1.ModuleRef
-	(*Module)(nil),               // 5: registry.module.v1.Module
+	(*ListModulesRequest)(nil),              // 0: registry.module.v1.ListModulesRequest
+	(*ListModulesResponse)(nil),             // 1: registry.module.v1.ListModulesResponse
+	(*ListOrganizationModulesRequest)(nil),  // 2: registry.module.v1.ListOrganizationModulesRequest
+	(*ListOrganizationModulesResponse)(nil), // 3: registry.module.v1.ListOrganizationModulesResponse
+	(*CreateModuleRequest)(nil),             // 4: registry.module.v1.CreateModuleRequest
+	(*CreateModuleResponse)(nil),            // 5: registry.module.v1.CreateModuleResponse
+	(*Module)(nil),                          // 6: registry.module.v1.Module
 }
 var file_registry_module_v1_module_service_proto_depIdxs = []int32{
-	4, // 0: registry.module.v1.ListModulesRequest.module_refs:type_name -> registry.module.v1.ModuleRef
-	5, // 1: registry.module.v1.ListModulesResponse.modules:type_name -> registry.module.v1.Module
-	5, // 2: registry.module.v1.CreateModuleResponse.module:type_name -> registry.module.v1.Module
-	2, // 3: registry.module.v1.ModuleService.CreateModule:input_type -> registry.module.v1.CreateModuleRequest
+	6, // 0: registry.module.v1.ListModulesResponse.modules:type_name -> registry.module.v1.Module
+	6, // 1: registry.module.v1.ListOrganizationModulesResponse.modules:type_name -> registry.module.v1.Module
+	6, // 2: registry.module.v1.CreateModuleResponse.module:type_name -> registry.module.v1.Module
+	4, // 3: registry.module.v1.ModuleService.CreateModule:input_type -> registry.module.v1.CreateModuleRequest
 	0, // 4: registry.module.v1.ModuleService.ListModules:input_type -> registry.module.v1.ListModulesRequest
-	3, // 5: registry.module.v1.ModuleService.CreateModule:output_type -> registry.module.v1.CreateModuleResponse
-	1, // 6: registry.module.v1.ModuleService.ListModules:output_type -> registry.module.v1.ListModulesResponse
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
+	2, // 5: registry.module.v1.ModuleService.ListOrganizationModules:input_type -> registry.module.v1.ListOrganizationModulesRequest
+	5, // 6: registry.module.v1.ModuleService.CreateModule:output_type -> registry.module.v1.CreateModuleResponse
+	1, // 7: registry.module.v1.ModuleService.ListModules:output_type -> registry.module.v1.ListModulesResponse
+	3, // 8: registry.module.v1.ModuleService.ListOrganizationModules:output_type -> registry.module.v1.ListOrganizationModulesResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
 	3, // [3:3] is the sub-list for extension extendee
 	0, // [0:3] is the sub-list for field type_name
@@ -279,7 +376,7 @@ func file_registry_module_v1_module_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_module_v1_module_service_proto_rawDesc), len(file_registry_module_v1_module_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

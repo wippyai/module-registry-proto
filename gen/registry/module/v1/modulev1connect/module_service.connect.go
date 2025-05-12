@@ -39,14 +39,19 @@ const (
 	// ModuleServiceListModulesProcedure is the fully-qualified name of the ModuleService's ListModules
 	// RPC.
 	ModuleServiceListModulesProcedure = "/registry.module.v1.ModuleService/ListModules"
+	// ModuleServiceListOrganizationModulesProcedure is the fully-qualified name of the ModuleService's
+	// ListOrganizationModules RPC.
+	ModuleServiceListOrganizationModulesProcedure = "/registry.module.v1.ModuleService/ListOrganizationModules"
 )
 
 // ModuleServiceClient is a client for the registry.module.v1.ModuleService service.
 type ModuleServiceClient interface {
 	// Create new Module.
 	CreateModule(context.Context, *connect.Request[v1.CreateModuleRequest]) (*connect.Response[v1.CreateModuleResponse], error)
-	// List Modules for a specific User or Organization.
+	// List Modules by their IDs.
 	ListModules(context.Context, *connect.Request[v1.ListModulesRequest]) (*connect.Response[v1.ListModulesResponse], error)
+	// List all Modules for specified Organizations.
+	ListOrganizationModules(context.Context, *connect.Request[v1.ListOrganizationModulesRequest]) (*connect.Response[v1.ListOrganizationModulesResponse], error)
 }
 
 // NewModuleServiceClient constructs a client for the registry.module.v1.ModuleService service. By
@@ -74,13 +79,21 @@ func NewModuleServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
+		listOrganizationModules: connect.NewClient[v1.ListOrganizationModulesRequest, v1.ListOrganizationModulesResponse](
+			httpClient,
+			baseURL+ModuleServiceListOrganizationModulesProcedure,
+			connect.WithSchema(moduleServiceMethods.ByName("ListOrganizationModules")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // moduleServiceClient implements ModuleServiceClient.
 type moduleServiceClient struct {
-	createModule *connect.Client[v1.CreateModuleRequest, v1.CreateModuleResponse]
-	listModules  *connect.Client[v1.ListModulesRequest, v1.ListModulesResponse]
+	createModule            *connect.Client[v1.CreateModuleRequest, v1.CreateModuleResponse]
+	listModules             *connect.Client[v1.ListModulesRequest, v1.ListModulesResponse]
+	listOrganizationModules *connect.Client[v1.ListOrganizationModulesRequest, v1.ListOrganizationModulesResponse]
 }
 
 // CreateModule calls registry.module.v1.ModuleService.CreateModule.
@@ -93,12 +106,19 @@ func (c *moduleServiceClient) ListModules(ctx context.Context, req *connect.Requ
 	return c.listModules.CallUnary(ctx, req)
 }
 
+// ListOrganizationModules calls registry.module.v1.ModuleService.ListOrganizationModules.
+func (c *moduleServiceClient) ListOrganizationModules(ctx context.Context, req *connect.Request[v1.ListOrganizationModulesRequest]) (*connect.Response[v1.ListOrganizationModulesResponse], error) {
+	return c.listOrganizationModules.CallUnary(ctx, req)
+}
+
 // ModuleServiceHandler is an implementation of the registry.module.v1.ModuleService service.
 type ModuleServiceHandler interface {
 	// Create new Module.
 	CreateModule(context.Context, *connect.Request[v1.CreateModuleRequest]) (*connect.Response[v1.CreateModuleResponse], error)
-	// List Modules for a specific User or Organization.
+	// List Modules by their IDs.
 	ListModules(context.Context, *connect.Request[v1.ListModulesRequest]) (*connect.Response[v1.ListModulesResponse], error)
+	// List all Modules for specified Organizations.
+	ListOrganizationModules(context.Context, *connect.Request[v1.ListOrganizationModulesRequest]) (*connect.Response[v1.ListOrganizationModulesResponse], error)
 }
 
 // NewModuleServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -122,12 +142,21 @@ func NewModuleServiceHandler(svc ModuleServiceHandler, opts ...connect.HandlerOp
 		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
+	moduleServiceListOrganizationModulesHandler := connect.NewUnaryHandler(
+		ModuleServiceListOrganizationModulesProcedure,
+		svc.ListOrganizationModules,
+		connect.WithSchema(moduleServiceMethods.ByName("ListOrganizationModules")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/registry.module.v1.ModuleService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case ModuleServiceCreateModuleProcedure:
 			moduleServiceCreateModuleHandler.ServeHTTP(w, r)
 		case ModuleServiceListModulesProcedure:
 			moduleServiceListModulesHandler.ServeHTTP(w, r)
+		case ModuleServiceListOrganizationModulesProcedure:
+			moduleServiceListOrganizationModulesHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -143,4 +172,8 @@ func (UnimplementedModuleServiceHandler) CreateModule(context.Context, *connect.
 
 func (UnimplementedModuleServiceHandler) ListModules(context.Context, *connect.Request[v1.ListModulesRequest]) (*connect.Response[v1.ListModulesResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.ModuleService.ListModules is not implemented"))
+}
+
+func (UnimplementedModuleServiceHandler) ListOrganizationModules(context.Context, *connect.Request[v1.ListOrganizationModulesRequest]) (*connect.Response[v1.ListOrganizationModulesResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.ModuleService.ListOrganizationModules is not implemented"))
 }

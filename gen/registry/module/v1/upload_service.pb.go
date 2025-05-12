@@ -24,8 +24,8 @@ const (
 
 type UploadRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// The Module of the reference.
-	ModuleRef *ModuleRef `protobuf:"bytes,1,opt,name=module_ref,json=moduleRef,proto3" json:"module_ref,omitempty"`
+	// The ID of the Module.
+	ModuleId string `protobuf:"bytes,1,opt,name=module_id,json=moduleId,proto3" json:"module_id,omitempty"`
 	// The Files of the Content.
 	Files         []*File `protobuf:"bytes,2,rep,name=files,proto3" json:"files,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -62,11 +62,11 @@ func (*UploadRequest) Descriptor() ([]byte, []int) {
 	return file_registry_module_v1_upload_service_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *UploadRequest) GetModuleRef() *ModuleRef {
+func (x *UploadRequest) GetModuleId() string {
 	if x != nil {
-		return x.ModuleRef
+		return x.ModuleId
 	}
-	return nil
+	return ""
 }
 
 func (x *UploadRequest) GetFiles() []*File {
@@ -125,10 +125,9 @@ var File_registry_module_v1_upload_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_upload_service_proto_rawDesc = "" +
 	"\n" +
-	"'registry/module/v1/upload_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/commit.proto\x1a\x1dregistry/module/v1/file.proto\x1a\x1fregistry/module/v1/module.proto\"\x8f\x01\n" +
-	"\rUploadRequest\x12D\n" +
-	"\n" +
-	"module_ref\x18\x01 \x01(\v2\x1d.registry.module.v1.ModuleRefB\x06\xbaH\x03\xc8\x01\x01R\tmoduleRef\x128\n" +
+	"'registry/module/v1/upload_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/commit.proto\x1a\x1dregistry/module/v1/file.proto\"s\n" +
+	"\rUploadRequest\x12(\n" +
+	"\tmodule_id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bmoduleId\x128\n" +
 	"\x05files\x18\x02 \x03(\v2\x18.registry.module.v1.FileB\b\xbaH\x05\x92\x01\x02\b\x01R\x05files\"D\n" +
 	"\x0eUploadResponse\x122\n" +
 	"\x06commit\x18\x01 \x01(\v2\x1a.registry.module.v1.CommitR\x06commit2b\n" +
@@ -151,21 +150,19 @@ var file_registry_module_v1_upload_service_proto_msgTypes = make([]protoimpl.Mes
 var file_registry_module_v1_upload_service_proto_goTypes = []any{
 	(*UploadRequest)(nil),  // 0: registry.module.v1.UploadRequest
 	(*UploadResponse)(nil), // 1: registry.module.v1.UploadResponse
-	(*ModuleRef)(nil),      // 2: registry.module.v1.ModuleRef
-	(*File)(nil),           // 3: registry.module.v1.File
-	(*Commit)(nil),         // 4: registry.module.v1.Commit
+	(*File)(nil),           // 2: registry.module.v1.File
+	(*Commit)(nil),         // 3: registry.module.v1.Commit
 }
 var file_registry_module_v1_upload_service_proto_depIdxs = []int32{
-	2, // 0: registry.module.v1.UploadRequest.module_ref:type_name -> registry.module.v1.ModuleRef
-	3, // 1: registry.module.v1.UploadRequest.files:type_name -> registry.module.v1.File
-	4, // 2: registry.module.v1.UploadResponse.commit:type_name -> registry.module.v1.Commit
-	0, // 3: registry.module.v1.UploadService.Upload:input_type -> registry.module.v1.UploadRequest
-	1, // 4: registry.module.v1.UploadService.Upload:output_type -> registry.module.v1.UploadResponse
-	4, // [4:5] is the sub-list for method output_type
-	3, // [3:4] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	2, // 0: registry.module.v1.UploadRequest.files:type_name -> registry.module.v1.File
+	3, // 1: registry.module.v1.UploadResponse.commit:type_name -> registry.module.v1.Commit
+	0, // 2: registry.module.v1.UploadService.Upload:input_type -> registry.module.v1.UploadRequest
+	1, // 3: registry.module.v1.UploadService.Upload:output_type -> registry.module.v1.UploadResponse
+	3, // [3:4] is the sub-list for method output_type
+	2, // [2:3] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_upload_service_proto_init() }
@@ -175,7 +172,6 @@ func file_registry_module_v1_upload_service_proto_init() {
 	}
 	file_registry_module_v1_commit_proto_init()
 	file_registry_module_v1_file_proto_init()
-	file_registry_module_v1_module_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
