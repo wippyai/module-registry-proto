@@ -12,6 +12,10 @@ option go_package = "github.com/wippyai/module-registry-proto/gen/registry/modul
 service UploadService {
   // Upload contents for the given Module.
   rpc Upload(UploadRequest) returns (UploadResponse) {}
+
+  // Upload archive contents for the given Module.
+  // This allows uploading compressed archive files that will be extracted server-side.
+  rpc UploadArchive(UploadArchiveRequest) returns (UploadArchiveResponse) {}
 }
 
 message UploadRequest {
@@ -27,4 +31,36 @@ message UploadRequest {
 message UploadResponse {
   // The created commit
   Commit commit = 1;
+}
+
+message UploadArchiveRequest {
+  // Enumeration of supported archive formats
+  enum ArchiveFormat {
+    ARCHIVE_FORMAT_UNSPECIFIED = 0;
+    ARCHIVE_FORMAT_ZIP = 1;
+  }
+
+  // The ID of the Module.
+  string module_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // Archive content to be uploaded and extracted.
+  // Supported formats include .zip, .tar, .tar.gz, .tgz
+  bytes archive_content = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).bytes.max_len = 12000000 // 12MB
+  ];
+
+  // Format of the archive.
+  ArchiveFormat format = 3 [(buf.validate.field).required = true];
+}
+
+message UploadArchiveResponse {
+  // The created commit
+  Commit commit = 1;
+
+  // Number of files extracted from the archive
+  int32 extracted_files_count = 2;
 }

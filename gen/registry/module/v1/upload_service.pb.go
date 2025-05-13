@@ -22,6 +22,53 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Enumeration of supported archive formats
+type UploadArchiveRequest_ArchiveFormat int32
+
+const (
+	UploadArchiveRequest_ARCHIVE_FORMAT_UNSPECIFIED UploadArchiveRequest_ArchiveFormat = 0
+	UploadArchiveRequest_ARCHIVE_FORMAT_ZIP         UploadArchiveRequest_ArchiveFormat = 1
+)
+
+// Enum value maps for UploadArchiveRequest_ArchiveFormat.
+var (
+	UploadArchiveRequest_ArchiveFormat_name = map[int32]string{
+		0: "ARCHIVE_FORMAT_UNSPECIFIED",
+		1: "ARCHIVE_FORMAT_ZIP",
+	}
+	UploadArchiveRequest_ArchiveFormat_value = map[string]int32{
+		"ARCHIVE_FORMAT_UNSPECIFIED": 0,
+		"ARCHIVE_FORMAT_ZIP":         1,
+	}
+)
+
+func (x UploadArchiveRequest_ArchiveFormat) Enum() *UploadArchiveRequest_ArchiveFormat {
+	p := new(UploadArchiveRequest_ArchiveFormat)
+	*p = x
+	return p
+}
+
+func (x UploadArchiveRequest_ArchiveFormat) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (UploadArchiveRequest_ArchiveFormat) Descriptor() protoreflect.EnumDescriptor {
+	return file_registry_module_v1_upload_service_proto_enumTypes[0].Descriptor()
+}
+
+func (UploadArchiveRequest_ArchiveFormat) Type() protoreflect.EnumType {
+	return &file_registry_module_v1_upload_service_proto_enumTypes[0]
+}
+
+func (x UploadArchiveRequest_ArchiveFormat) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use UploadArchiveRequest_ArchiveFormat.Descriptor instead.
+func (UploadArchiveRequest_ArchiveFormat) EnumDescriptor() ([]byte, []int) {
+	return file_registry_module_v1_upload_service_proto_rawDescGZIP(), []int{2, 0}
+}
+
 type UploadRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The ID of the Module.
@@ -121,6 +168,124 @@ func (x *UploadResponse) GetCommit() *Commit {
 	return nil
 }
 
+type UploadArchiveRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The ID of the Module.
+	ModuleId string `protobuf:"bytes,1,opt,name=module_id,json=moduleId,proto3" json:"module_id,omitempty"`
+	// Archive content to be uploaded and extracted.
+	// Supported formats include .zip, .tar, .tar.gz, .tgz
+	ArchiveContent []byte `protobuf:"bytes,2,opt,name=archive_content,json=archiveContent,proto3" json:"archive_content,omitempty"`
+	// Format of the archive.
+	Format        UploadArchiveRequest_ArchiveFormat `protobuf:"varint,3,opt,name=format,proto3,enum=registry.module.v1.UploadArchiveRequest_ArchiveFormat" json:"format,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UploadArchiveRequest) Reset() {
+	*x = UploadArchiveRequest{}
+	mi := &file_registry_module_v1_upload_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadArchiveRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadArchiveRequest) ProtoMessage() {}
+
+func (x *UploadArchiveRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_upload_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadArchiveRequest.ProtoReflect.Descriptor instead.
+func (*UploadArchiveRequest) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_upload_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *UploadArchiveRequest) GetModuleId() string {
+	if x != nil {
+		return x.ModuleId
+	}
+	return ""
+}
+
+func (x *UploadArchiveRequest) GetArchiveContent() []byte {
+	if x != nil {
+		return x.ArchiveContent
+	}
+	return nil
+}
+
+func (x *UploadArchiveRequest) GetFormat() UploadArchiveRequest_ArchiveFormat {
+	if x != nil {
+		return x.Format
+	}
+	return UploadArchiveRequest_ARCHIVE_FORMAT_UNSPECIFIED
+}
+
+type UploadArchiveResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The created commit
+	Commit *Commit `protobuf:"bytes,1,opt,name=commit,proto3" json:"commit,omitempty"`
+	// Number of files extracted from the archive
+	ExtractedFilesCount int32 `protobuf:"varint,2,opt,name=extracted_files_count,json=extractedFilesCount,proto3" json:"extracted_files_count,omitempty"`
+	unknownFields       protoimpl.UnknownFields
+	sizeCache           protoimpl.SizeCache
+}
+
+func (x *UploadArchiveResponse) Reset() {
+	*x = UploadArchiveResponse{}
+	mi := &file_registry_module_v1_upload_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UploadArchiveResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UploadArchiveResponse) ProtoMessage() {}
+
+func (x *UploadArchiveResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_upload_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UploadArchiveResponse.ProtoReflect.Descriptor instead.
+func (*UploadArchiveResponse) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_upload_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *UploadArchiveResponse) GetCommit() *Commit {
+	if x != nil {
+		return x.Commit
+	}
+	return nil
+}
+
+func (x *UploadArchiveResponse) GetExtractedFilesCount() int32 {
+	if x != nil {
+		return x.ExtractedFilesCount
+	}
+	return 0
+}
+
 var File_registry_module_v1_upload_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_upload_service_proto_rawDesc = "" +
@@ -130,9 +295,21 @@ const file_registry_module_v1_upload_service_proto_rawDesc = "" +
 	"\tmodule_id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bmoduleId\x128\n" +
 	"\x05files\x18\x02 \x03(\v2\x18.registry.module.v1.FileB\b\xbaH\x05\x92\x01\x02\b\x01R\x05files\"D\n" +
 	"\x0eUploadResponse\x122\n" +
-	"\x06commit\x18\x01 \x01(\v2\x1a.registry.module.v1.CommitR\x06commit2b\n" +
+	"\x06commit\x18\x01 \x01(\v2\x1a.registry.module.v1.CommitR\x06commit\"\x99\x02\n" +
+	"\x14UploadArchiveRequest\x12(\n" +
+	"\tmodule_id\x18\x01 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bmoduleId\x126\n" +
+	"\x0farchive_content\x18\x02 \x01(\fB\r\xbaH\n" +
+	"\xc8\x01\x01z\x05\x18\x80\xb6\xdc\x05R\x0earchiveContent\x12V\n" +
+	"\x06format\x18\x03 \x01(\x0e26.registry.module.v1.UploadArchiveRequest.ArchiveFormatB\x06\xbaH\x03\xc8\x01\x01R\x06format\"G\n" +
+	"\rArchiveFormat\x12\x1e\n" +
+	"\x1aARCHIVE_FORMAT_UNSPECIFIED\x10\x00\x12\x16\n" +
+	"\x12ARCHIVE_FORMAT_ZIP\x10\x01\"\x7f\n" +
+	"\x15UploadArchiveResponse\x122\n" +
+	"\x06commit\x18\x01 \x01(\v2\x1a.registry.module.v1.CommitR\x06commit\x122\n" +
+	"\x15extracted_files_count\x18\x02 \x01(\x05R\x13extractedFilesCount2\xca\x01\n" +
 	"\rUploadService\x12Q\n" +
-	"\x06Upload\x12!.registry.module.v1.UploadRequest\x1a\".registry.module.v1.UploadResponse\"\x00BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
+	"\x06Upload\x12!.registry.module.v1.UploadRequest\x1a\".registry.module.v1.UploadResponse\"\x00\x12f\n" +
+	"\rUploadArchive\x12(.registry.module.v1.UploadArchiveRequest\x1a).registry.module.v1.UploadArchiveResponse\"\x00BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_upload_service_proto_rawDescOnce sync.Once
@@ -146,23 +323,31 @@ func file_registry_module_v1_upload_service_proto_rawDescGZIP() []byte {
 	return file_registry_module_v1_upload_service_proto_rawDescData
 }
 
-var file_registry_module_v1_upload_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_registry_module_v1_upload_service_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_registry_module_v1_upload_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_registry_module_v1_upload_service_proto_goTypes = []any{
-	(*UploadRequest)(nil),  // 0: registry.module.v1.UploadRequest
-	(*UploadResponse)(nil), // 1: registry.module.v1.UploadResponse
-	(*File)(nil),           // 2: registry.module.v1.File
-	(*Commit)(nil),         // 3: registry.module.v1.Commit
+	(UploadArchiveRequest_ArchiveFormat)(0), // 0: registry.module.v1.UploadArchiveRequest.ArchiveFormat
+	(*UploadRequest)(nil),                   // 1: registry.module.v1.UploadRequest
+	(*UploadResponse)(nil),                  // 2: registry.module.v1.UploadResponse
+	(*UploadArchiveRequest)(nil),            // 3: registry.module.v1.UploadArchiveRequest
+	(*UploadArchiveResponse)(nil),           // 4: registry.module.v1.UploadArchiveResponse
+	(*File)(nil),                            // 5: registry.module.v1.File
+	(*Commit)(nil),                          // 6: registry.module.v1.Commit
 }
 var file_registry_module_v1_upload_service_proto_depIdxs = []int32{
-	2, // 0: registry.module.v1.UploadRequest.files:type_name -> registry.module.v1.File
-	3, // 1: registry.module.v1.UploadResponse.commit:type_name -> registry.module.v1.Commit
-	0, // 2: registry.module.v1.UploadService.Upload:input_type -> registry.module.v1.UploadRequest
-	1, // 3: registry.module.v1.UploadService.Upload:output_type -> registry.module.v1.UploadResponse
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	5, // 0: registry.module.v1.UploadRequest.files:type_name -> registry.module.v1.File
+	6, // 1: registry.module.v1.UploadResponse.commit:type_name -> registry.module.v1.Commit
+	0, // 2: registry.module.v1.UploadArchiveRequest.format:type_name -> registry.module.v1.UploadArchiveRequest.ArchiveFormat
+	6, // 3: registry.module.v1.UploadArchiveResponse.commit:type_name -> registry.module.v1.Commit
+	1, // 4: registry.module.v1.UploadService.Upload:input_type -> registry.module.v1.UploadRequest
+	3, // 5: registry.module.v1.UploadService.UploadArchive:input_type -> registry.module.v1.UploadArchiveRequest
+	2, // 6: registry.module.v1.UploadService.Upload:output_type -> registry.module.v1.UploadResponse
+	4, // 7: registry.module.v1.UploadService.UploadArchive:output_type -> registry.module.v1.UploadArchiveResponse
+	6, // [6:8] is the sub-list for method output_type
+	4, // [4:6] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_upload_service_proto_init() }
@@ -177,13 +362,14 @@ func file_registry_module_v1_upload_service_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_module_v1_upload_service_proto_rawDesc), len(file_registry_module_v1_upload_service_proto_rawDesc)),
-			NumEnums:      0,
-			NumMessages:   2,
+			NumEnums:      1,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_registry_module_v1_upload_service_proto_goTypes,
 		DependencyIndexes: file_registry_module_v1_upload_service_proto_depIdxs,
+		EnumInfos:         file_registry_module_v1_upload_service_proto_enumTypes,
 		MessageInfos:      file_registry_module_v1_upload_service_proto_msgTypes,
 	}.Build()
 	File_registry_module_v1_upload_service_proto = out.File
