@@ -112,10 +112,7 @@ func (x *CreateOrganizationResponse) GetOrganization() *Organization {
 }
 
 type ListOrganizationsRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// Optional pagination parameters
-	PageSize      int32  `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	PageToken     string `protobuf:"bytes,2,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -150,26 +147,10 @@ func (*ListOrganizationsRequest) Descriptor() ([]byte, []int) {
 	return file_registry_identity_v1_organization_service_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ListOrganizationsRequest) GetPageSize() int32 {
-	if x != nil {
-		return x.PageSize
-	}
-	return 0
-}
-
-func (x *ListOrganizationsRequest) GetPageToken() string {
-	if x != nil {
-		return x.PageToken
-	}
-	return ""
-}
-
 type ListOrganizationsResponse struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// The listed Organizations.
 	Organizations []*Organization `protobuf:"bytes,1,rep,name=organizations,proto3" json:"organizations,omitempty"`
-	// Token for the next page, if any.
-	NextPageToken string `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -211,11 +192,85 @@ func (x *ListOrganizationsResponse) GetOrganizations() []*Organization {
 	return nil
 }
 
-func (x *ListOrganizationsResponse) GetNextPageToken() string {
+type ListUserOrganizationsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListUserOrganizationsRequest) Reset() {
+	*x = ListUserOrganizationsRequest{}
+	mi := &file_registry_identity_v1_organization_service_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListUserOrganizationsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListUserOrganizationsRequest) ProtoMessage() {}
+
+func (x *ListUserOrganizationsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_identity_v1_organization_service_proto_msgTypes[4]
 	if x != nil {
-		return x.NextPageToken
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-	return ""
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListUserOrganizationsRequest.ProtoReflect.Descriptor instead.
+func (*ListUserOrganizationsRequest) Descriptor() ([]byte, []int) {
+	return file_registry_identity_v1_organization_service_proto_rawDescGZIP(), []int{4}
+}
+
+type ListUserOrganizationsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The organizations the user is a member of.
+	Organizations []*Organization `protobuf:"bytes,1,rep,name=organizations,proto3" json:"organizations,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListUserOrganizationsResponse) Reset() {
+	*x = ListUserOrganizationsResponse{}
+	mi := &file_registry_identity_v1_organization_service_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListUserOrganizationsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListUserOrganizationsResponse) ProtoMessage() {}
+
+func (x *ListUserOrganizationsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_identity_v1_organization_service_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListUserOrganizationsResponse.ProtoReflect.Descriptor instead.
+func (*ListUserOrganizationsResponse) Descriptor() ([]byte, []int) {
+	return file_registry_identity_v1_organization_service_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ListUserOrganizationsResponse) GetOrganizations() []*Organization {
+	if x != nil {
+		return x.Organizations
+	}
+	return nil
 }
 
 var File_registry_identity_v1_organization_service_proto protoreflect.FileDescriptor
@@ -226,16 +281,16 @@ const file_registry_identity_v1_organization_service_proto_rawDesc = "" +
 	"\x19CreateOrganizationRequest\x12;\n" +
 	"\x04name\x18\x01 \x01(\tB'\xbaH$\xc8\x01\x01r\x1f\x10\x02\x18 2\x19^[a-z][a-z0-9-]*[a-z0-9]$R\x04name\"d\n" +
 	"\x1aCreateOrganizationResponse\x12F\n" +
-	"\forganization\x18\x01 \x01(\v2\".registry.identity.v1.OrganizationR\forganization\"_\n" +
-	"\x18ListOrganizationsRequest\x12$\n" +
-	"\tpage_size\x18\x01 \x01(\x05B\a\xbaH\x04\x1a\x02(\x01R\bpageSize\x12\x1d\n" +
-	"\n" +
-	"page_token\x18\x02 \x01(\tR\tpageToken\"\x8d\x01\n" +
+	"\forganization\x18\x01 \x01(\v2\".registry.identity.v1.OrganizationR\forganization\"\x1a\n" +
+	"\x18ListOrganizationsRequest\"e\n" +
 	"\x19ListOrganizationsResponse\x12H\n" +
-	"\rorganizations\x18\x01 \x03(\v2\".registry.identity.v1.OrganizationR\rorganizations\x12&\n" +
-	"\x0fnext_page_token\x18\x02 \x01(\tR\rnextPageToken2\x8e\x02\n" +
+	"\rorganizations\x18\x01 \x03(\v2\".registry.identity.v1.OrganizationR\rorganizations\"\x1e\n" +
+	"\x1cListUserOrganizationsRequest\"i\n" +
+	"\x1dListUserOrganizationsResponse\x12H\n" +
+	"\rorganizations\x18\x01 \x03(\v2\".registry.identity.v1.OrganizationR\rorganizations2\x96\x03\n" +
 	"\x13OrganizationService\x12|\n" +
-	"\x12CreateOrganization\x12/.registry.identity.v1.CreateOrganizationRequest\x1a0.registry.identity.v1.CreateOrganizationResponse\"\x03\x90\x02\x02\x12y\n" +
+	"\x12CreateOrganization\x12/.registry.identity.v1.CreateOrganizationRequest\x1a0.registry.identity.v1.CreateOrganizationResponse\"\x03\x90\x02\x02\x12\x85\x01\n" +
+	"\x15ListUserOrganizations\x122.registry.identity.v1.ListUserOrganizationsRequest\x1a3.registry.identity.v1.ListUserOrganizationsResponse\"\x03\x90\x02\x01\x12y\n" +
 	"\x11ListOrganizations\x12..registry.identity.v1.ListOrganizationsRequest\x1a/.registry.identity.v1.ListOrganizationsResponse\"\x03\x90\x02\x01BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
 
 var (
@@ -250,26 +305,31 @@ func file_registry_identity_v1_organization_service_proto_rawDescGZIP() []byte {
 	return file_registry_identity_v1_organization_service_proto_rawDescData
 }
 
-var file_registry_identity_v1_organization_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_registry_identity_v1_organization_service_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_registry_identity_v1_organization_service_proto_goTypes = []any{
-	(*CreateOrganizationRequest)(nil),  // 0: registry.identity.v1.CreateOrganizationRequest
-	(*CreateOrganizationResponse)(nil), // 1: registry.identity.v1.CreateOrganizationResponse
-	(*ListOrganizationsRequest)(nil),   // 2: registry.identity.v1.ListOrganizationsRequest
-	(*ListOrganizationsResponse)(nil),  // 3: registry.identity.v1.ListOrganizationsResponse
-	(*Organization)(nil),               // 4: registry.identity.v1.Organization
+	(*CreateOrganizationRequest)(nil),     // 0: registry.identity.v1.CreateOrganizationRequest
+	(*CreateOrganizationResponse)(nil),    // 1: registry.identity.v1.CreateOrganizationResponse
+	(*ListOrganizationsRequest)(nil),      // 2: registry.identity.v1.ListOrganizationsRequest
+	(*ListOrganizationsResponse)(nil),     // 3: registry.identity.v1.ListOrganizationsResponse
+	(*ListUserOrganizationsRequest)(nil),  // 4: registry.identity.v1.ListUserOrganizationsRequest
+	(*ListUserOrganizationsResponse)(nil), // 5: registry.identity.v1.ListUserOrganizationsResponse
+	(*Organization)(nil),                  // 6: registry.identity.v1.Organization
 }
 var file_registry_identity_v1_organization_service_proto_depIdxs = []int32{
-	4, // 0: registry.identity.v1.CreateOrganizationResponse.organization:type_name -> registry.identity.v1.Organization
-	4, // 1: registry.identity.v1.ListOrganizationsResponse.organizations:type_name -> registry.identity.v1.Organization
-	0, // 2: registry.identity.v1.OrganizationService.CreateOrganization:input_type -> registry.identity.v1.CreateOrganizationRequest
-	2, // 3: registry.identity.v1.OrganizationService.ListOrganizations:input_type -> registry.identity.v1.ListOrganizationsRequest
-	1, // 4: registry.identity.v1.OrganizationService.CreateOrganization:output_type -> registry.identity.v1.CreateOrganizationResponse
-	3, // 5: registry.identity.v1.OrganizationService.ListOrganizations:output_type -> registry.identity.v1.ListOrganizationsResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	6, // 0: registry.identity.v1.CreateOrganizationResponse.organization:type_name -> registry.identity.v1.Organization
+	6, // 1: registry.identity.v1.ListOrganizationsResponse.organizations:type_name -> registry.identity.v1.Organization
+	6, // 2: registry.identity.v1.ListUserOrganizationsResponse.organizations:type_name -> registry.identity.v1.Organization
+	0, // 3: registry.identity.v1.OrganizationService.CreateOrganization:input_type -> registry.identity.v1.CreateOrganizationRequest
+	4, // 4: registry.identity.v1.OrganizationService.ListUserOrganizations:input_type -> registry.identity.v1.ListUserOrganizationsRequest
+	2, // 5: registry.identity.v1.OrganizationService.ListOrganizations:input_type -> registry.identity.v1.ListOrganizationsRequest
+	1, // 6: registry.identity.v1.OrganizationService.CreateOrganization:output_type -> registry.identity.v1.CreateOrganizationResponse
+	5, // 7: registry.identity.v1.OrganizationService.ListUserOrganizations:output_type -> registry.identity.v1.ListUserOrganizationsResponse
+	3, // 8: registry.identity.v1.OrganizationService.ListOrganizations:output_type -> registry.identity.v1.ListOrganizationsResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_registry_identity_v1_organization_service_proto_init() }
@@ -284,7 +344,7 @@ func file_registry_identity_v1_organization_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_identity_v1_organization_service_proto_rawDesc), len(file_registry_identity_v1_organization_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

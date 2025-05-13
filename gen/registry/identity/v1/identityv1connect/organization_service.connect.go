@@ -36,6 +36,9 @@ const (
 	// OrganizationServiceCreateOrganizationProcedure is the fully-qualified name of the
 	// OrganizationService's CreateOrganization RPC.
 	OrganizationServiceCreateOrganizationProcedure = "/registry.identity.v1.OrganizationService/CreateOrganization"
+	// OrganizationServiceListUserOrganizationsProcedure is the fully-qualified name of the
+	// OrganizationService's ListUserOrganizations RPC.
+	OrganizationServiceListUserOrganizationsProcedure = "/registry.identity.v1.OrganizationService/ListUserOrganizations"
 	// OrganizationServiceListOrganizationsProcedure is the fully-qualified name of the
 	// OrganizationService's ListOrganizations RPC.
 	OrganizationServiceListOrganizationsProcedure = "/registry.identity.v1.OrganizationService/ListOrganizations"
@@ -45,7 +48,9 @@ const (
 type OrganizationServiceClient interface {
 	// Create new organization.
 	CreateOrganization(context.Context, *connect.Request[v1.CreateOrganizationRequest]) (*connect.Response[v1.CreateOrganizationResponse], error)
-	// List organizations.
+	// List organizations the user is a member of.
+	ListUserOrganizations(context.Context, *connect.Request[v1.ListUserOrganizationsRequest]) (*connect.Response[v1.ListUserOrganizationsResponse], error)
+	// List all organizations.
 	ListOrganizations(context.Context, *connect.Request[v1.ListOrganizationsRequest]) (*connect.Response[v1.ListOrganizationsResponse], error)
 }
 
@@ -67,6 +72,13 @@ func NewOrganizationServiceClient(httpClient connect.HTTPClient, baseURL string,
 			connect.WithIdempotency(connect.IdempotencyIdempotent),
 			connect.WithClientOptions(opts...),
 		),
+		listUserOrganizations: connect.NewClient[v1.ListUserOrganizationsRequest, v1.ListUserOrganizationsResponse](
+			httpClient,
+			baseURL+OrganizationServiceListUserOrganizationsProcedure,
+			connect.WithSchema(organizationServiceMethods.ByName("ListUserOrganizations")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
 		listOrganizations: connect.NewClient[v1.ListOrganizationsRequest, v1.ListOrganizationsResponse](
 			httpClient,
 			baseURL+OrganizationServiceListOrganizationsProcedure,
@@ -79,13 +91,19 @@ func NewOrganizationServiceClient(httpClient connect.HTTPClient, baseURL string,
 
 // organizationServiceClient implements OrganizationServiceClient.
 type organizationServiceClient struct {
-	createOrganization *connect.Client[v1.CreateOrganizationRequest, v1.CreateOrganizationResponse]
-	listOrganizations  *connect.Client[v1.ListOrganizationsRequest, v1.ListOrganizationsResponse]
+	createOrganization    *connect.Client[v1.CreateOrganizationRequest, v1.CreateOrganizationResponse]
+	listUserOrganizations *connect.Client[v1.ListUserOrganizationsRequest, v1.ListUserOrganizationsResponse]
+	listOrganizations     *connect.Client[v1.ListOrganizationsRequest, v1.ListOrganizationsResponse]
 }
 
 // CreateOrganization calls registry.identity.v1.OrganizationService.CreateOrganization.
 func (c *organizationServiceClient) CreateOrganization(ctx context.Context, req *connect.Request[v1.CreateOrganizationRequest]) (*connect.Response[v1.CreateOrganizationResponse], error) {
 	return c.createOrganization.CallUnary(ctx, req)
+}
+
+// ListUserOrganizations calls registry.identity.v1.OrganizationService.ListUserOrganizations.
+func (c *organizationServiceClient) ListUserOrganizations(ctx context.Context, req *connect.Request[v1.ListUserOrganizationsRequest]) (*connect.Response[v1.ListUserOrganizationsResponse], error) {
+	return c.listUserOrganizations.CallUnary(ctx, req)
 }
 
 // ListOrganizations calls registry.identity.v1.OrganizationService.ListOrganizations.
@@ -98,7 +116,9 @@ func (c *organizationServiceClient) ListOrganizations(ctx context.Context, req *
 type OrganizationServiceHandler interface {
 	// Create new organization.
 	CreateOrganization(context.Context, *connect.Request[v1.CreateOrganizationRequest]) (*connect.Response[v1.CreateOrganizationResponse], error)
-	// List organizations.
+	// List organizations the user is a member of.
+	ListUserOrganizations(context.Context, *connect.Request[v1.ListUserOrganizationsRequest]) (*connect.Response[v1.ListUserOrganizationsResponse], error)
+	// List all organizations.
 	ListOrganizations(context.Context, *connect.Request[v1.ListOrganizationsRequest]) (*connect.Response[v1.ListOrganizationsResponse], error)
 }
 
@@ -116,6 +136,13 @@ func NewOrganizationServiceHandler(svc OrganizationServiceHandler, opts ...conne
 		connect.WithIdempotency(connect.IdempotencyIdempotent),
 		connect.WithHandlerOptions(opts...),
 	)
+	organizationServiceListUserOrganizationsHandler := connect.NewUnaryHandler(
+		OrganizationServiceListUserOrganizationsProcedure,
+		svc.ListUserOrganizations,
+		connect.WithSchema(organizationServiceMethods.ByName("ListUserOrganizations")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
 	organizationServiceListOrganizationsHandler := connect.NewUnaryHandler(
 		OrganizationServiceListOrganizationsProcedure,
 		svc.ListOrganizations,
@@ -127,6 +154,8 @@ func NewOrganizationServiceHandler(svc OrganizationServiceHandler, opts ...conne
 		switch r.URL.Path {
 		case OrganizationServiceCreateOrganizationProcedure:
 			organizationServiceCreateOrganizationHandler.ServeHTTP(w, r)
+		case OrganizationServiceListUserOrganizationsProcedure:
+			organizationServiceListUserOrganizationsHandler.ServeHTTP(w, r)
 		case OrganizationServiceListOrganizationsProcedure:
 			organizationServiceListOrganizationsHandler.ServeHTTP(w, r)
 		default:
@@ -140,6 +169,10 @@ type UnimplementedOrganizationServiceHandler struct{}
 
 func (UnimplementedOrganizationServiceHandler) CreateOrganization(context.Context, *connect.Request[v1.CreateOrganizationRequest]) (*connect.Response[v1.CreateOrganizationResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.identity.v1.OrganizationService.CreateOrganization is not implemented"))
+}
+
+func (UnimplementedOrganizationServiceHandler) ListUserOrganizations(context.Context, *connect.Request[v1.ListUserOrganizationsRequest]) (*connect.Response[v1.ListUserOrganizationsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.identity.v1.OrganizationService.ListUserOrganizations is not implemented"))
 }
 
 func (UnimplementedOrganizationServiceHandler) ListOrganizations(context.Context, *connect.Request[v1.ListOrganizationsRequest]) (*connect.Response[v1.ListOrganizationsResponse], error) {
