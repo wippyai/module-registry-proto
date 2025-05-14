@@ -35,12 +35,18 @@ const (
 const (
 	// UploadServiceUploadProcedure is the fully-qualified name of the UploadService's Upload RPC.
 	UploadServiceUploadProcedure = "/registry.module.v1.UploadService/Upload"
+	// UploadServiceUploadArchiveProcedure is the fully-qualified name of the UploadService's
+	// UploadArchive RPC.
+	UploadServiceUploadArchiveProcedure = "/registry.module.v1.UploadService/UploadArchive"
 )
 
 // UploadServiceClient is a client for the registry.module.v1.UploadService service.
 type UploadServiceClient interface {
 	// Upload contents for the given Module.
 	Upload(context.Context, *connect.Request[v1.UploadRequest]) (*connect.Response[v1.UploadResponse], error)
+	// Upload archive contents for the given Module.
+	// This allows uploading compressed archive files that will be extracted server-side.
+	UploadArchive(context.Context, *connect.Request[v1.UploadArchiveRequest]) (*connect.Response[v1.UploadArchiveResponse], error)
 }
 
 // NewUploadServiceClient constructs a client for the registry.module.v1.UploadService service. By
@@ -60,12 +66,19 @@ func NewUploadServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithSchema(uploadServiceMethods.ByName("Upload")),
 			connect.WithClientOptions(opts...),
 		),
+		uploadArchive: connect.NewClient[v1.UploadArchiveRequest, v1.UploadArchiveResponse](
+			httpClient,
+			baseURL+UploadServiceUploadArchiveProcedure,
+			connect.WithSchema(uploadServiceMethods.ByName("UploadArchive")),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // uploadServiceClient implements UploadServiceClient.
 type uploadServiceClient struct {
-	upload *connect.Client[v1.UploadRequest, v1.UploadResponse]
+	upload        *connect.Client[v1.UploadRequest, v1.UploadResponse]
+	uploadArchive *connect.Client[v1.UploadArchiveRequest, v1.UploadArchiveResponse]
 }
 
 // Upload calls registry.module.v1.UploadService.Upload.
@@ -73,10 +86,18 @@ func (c *uploadServiceClient) Upload(ctx context.Context, req *connect.Request[v
 	return c.upload.CallUnary(ctx, req)
 }
 
+// UploadArchive calls registry.module.v1.UploadService.UploadArchive.
+func (c *uploadServiceClient) UploadArchive(ctx context.Context, req *connect.Request[v1.UploadArchiveRequest]) (*connect.Response[v1.UploadArchiveResponse], error) {
+	return c.uploadArchive.CallUnary(ctx, req)
+}
+
 // UploadServiceHandler is an implementation of the registry.module.v1.UploadService service.
 type UploadServiceHandler interface {
 	// Upload contents for the given Module.
 	Upload(context.Context, *connect.Request[v1.UploadRequest]) (*connect.Response[v1.UploadResponse], error)
+	// Upload archive contents for the given Module.
+	// This allows uploading compressed archive files that will be extracted server-side.
+	UploadArchive(context.Context, *connect.Request[v1.UploadArchiveRequest]) (*connect.Response[v1.UploadArchiveResponse], error)
 }
 
 // NewUploadServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -92,10 +113,18 @@ func NewUploadServiceHandler(svc UploadServiceHandler, opts ...connect.HandlerOp
 		connect.WithSchema(uploadServiceMethods.ByName("Upload")),
 		connect.WithHandlerOptions(opts...),
 	)
+	uploadServiceUploadArchiveHandler := connect.NewUnaryHandler(
+		UploadServiceUploadArchiveProcedure,
+		svc.UploadArchive,
+		connect.WithSchema(uploadServiceMethods.ByName("UploadArchive")),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/registry.module.v1.UploadService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case UploadServiceUploadProcedure:
 			uploadServiceUploadHandler.ServeHTTP(w, r)
+		case UploadServiceUploadArchiveProcedure:
+			uploadServiceUploadArchiveHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -107,4 +136,8 @@ type UnimplementedUploadServiceHandler struct{}
 
 func (UnimplementedUploadServiceHandler) Upload(context.Context, *connect.Request[v1.UploadRequest]) (*connect.Response[v1.UploadResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.UploadService.Upload is not implemented"))
+}
+
+func (UnimplementedUploadServiceHandler) UploadArchive(context.Context, *connect.Request[v1.UploadArchiveRequest]) (*connect.Response[v1.UploadArchiveResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.UploadService.UploadArchive is not implemented"))
 }

@@ -14,7 +14,12 @@ service OrganizationService {
     option idempotency_level = IDEMPOTENT;
   }
 
-  // List organizations.
+  // List organizations the user is a member of.
+  rpc ListUserOrganizations(ListUserOrganizationsRequest) returns (ListUserOrganizationsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+
+  // List all organizations.
   rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
   }
@@ -34,15 +39,16 @@ message CreateOrganizationResponse {
   Organization organization = 1;
 }
 
-message ListOrganizationsRequest {
-  // Optional pagination parameters
-  int32 page_size = 1 [(buf.validate.field).int32.gte = 1];
-  string page_token = 2;
-}
+message ListOrganizationsRequest {}
 
 message ListOrganizationsResponse {
   // The listed Organizations.
   repeated Organization organizations = 1;
-  // Token for the next page, if any.
-  string next_page_token = 2;
+}
+
+message ListUserOrganizationsRequest {}
+
+message ListUserOrganizationsResponse {
+  // The organizations the user is a member of.
+  repeated Organization organizations = 1;
 }

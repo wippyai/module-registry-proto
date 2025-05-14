@@ -13,6 +13,11 @@ service UserService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
     option idempotency_level = IDEMPOTENT;
   }
+
+  // Get the current authenticated user.
+  rpc Self(SelfRequest) returns (SelfResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
 }
 
 message CreateUserRequest {
@@ -26,5 +31,13 @@ message CreateUserRequest {
 }
 
 message CreateUserResponse {
+  User user = 1;
+}
+
+// Request to get the currently authenticated user.
+message SelfRequest {}
+
+// Response containing the authenticated user's information.
+message SelfResponse {
   User user = 1;
 }
