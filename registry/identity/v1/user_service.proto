@@ -16,7 +16,7 @@ service UserService {
 
   // Get the current authenticated user.
   rpc Self(SelfRequest) returns (SelfResponse) {
-    option idempotency_level = IDEMPOTENT;
+    option idempotency_level = NO_SIDE_EFFECTS;
   }
 }
 

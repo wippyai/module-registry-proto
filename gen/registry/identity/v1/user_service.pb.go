@@ -208,7 +208,7 @@ const file_registry_identity_v1_user_service_proto_rawDesc = "" +
 	"\vUserService\x12d\n" +
 	"\n" +
 	"CreateUser\x12'.registry.identity.v1.CreateUserRequest\x1a(.registry.identity.v1.CreateUserResponse\"\x03\x90\x02\x02\x12R\n" +
-	"\x04Self\x12!.registry.identity.v1.SelfRequest\x1a\".registry.identity.v1.SelfResponse\"\x03\x90\x02\x02BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
+	"\x04Self\x12!.registry.identity.v1.SelfRequest\x1a\".registry.identity.v1.SelfResponse\"\x03\x90\x02\x01BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
 
 var (
 	file_registry_identity_v1_user_service_proto_rawDescOnce sync.Once

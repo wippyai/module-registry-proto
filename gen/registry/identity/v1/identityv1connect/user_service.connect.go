@@ -69,7 +69,7 @@ func NewUserServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			httpClient,
 			baseURL+UserServiceSelfProcedure,
 			connect.WithSchema(userServiceMethods.ByName("Self")),
-			connect.WithIdempotency(connect.IdempotencyIdempotent),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -117,7 +117,7 @@ func NewUserServiceHandler(svc UserServiceHandler, opts ...connect.HandlerOption
 		UserServiceSelfProcedure,
 		svc.Self,
 		connect.WithSchema(userServiceMethods.ByName("Self")),
-		connect.WithIdempotency(connect.IdempotencyIdempotent),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/registry.identity.v1.UserService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
