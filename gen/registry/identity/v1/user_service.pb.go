@@ -111,6 +111,88 @@ func (x *CreateUserResponse) GetUser() *User {
 	return nil
 }
 
+// Request to get the currently authenticated user.
+type SelfRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SelfRequest) Reset() {
+	*x = SelfRequest{}
+	mi := &file_registry_identity_v1_user_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SelfRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SelfRequest) ProtoMessage() {}
+
+func (x *SelfRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_identity_v1_user_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SelfRequest.ProtoReflect.Descriptor instead.
+func (*SelfRequest) Descriptor() ([]byte, []int) {
+	return file_registry_identity_v1_user_service_proto_rawDescGZIP(), []int{2}
+}
+
+// Response containing the authenticated user's information.
+type SelfResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	User          *User                  `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *SelfResponse) Reset() {
+	*x = SelfResponse{}
+	mi := &file_registry_identity_v1_user_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *SelfResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SelfResponse) ProtoMessage() {}
+
+func (x *SelfResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_identity_v1_user_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SelfResponse.ProtoReflect.Descriptor instead.
+func (*SelfResponse) Descriptor() ([]byte, []int) {
+	return file_registry_identity_v1_user_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SelfResponse) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 var File_registry_identity_v1_user_service_proto protoreflect.FileDescriptor
 
 const file_registry_identity_v1_user_service_proto_rawDesc = "" +
@@ -119,10 +201,14 @@ const file_registry_identity_v1_user_service_proto_rawDesc = "" +
 	"\x11CreateUserRequest\x12;\n" +
 	"\x04name\x18\x01 \x01(\tB'\xbaH$\xc8\x01\x01r\x1f\x10\x02\x18 2\x19^[a-z][a-z0-9-]*[a-z0-9]$R\x04name\"D\n" +
 	"\x12CreateUserResponse\x12.\n" +
-	"\x04user\x18\x01 \x01(\v2\x1a.registry.identity.v1.UserR\x04user2s\n" +
+	"\x04user\x18\x01 \x01(\v2\x1a.registry.identity.v1.UserR\x04user\"\r\n" +
+	"\vSelfRequest\">\n" +
+	"\fSelfResponse\x12.\n" +
+	"\x04user\x18\x01 \x01(\v2\x1a.registry.identity.v1.UserR\x04user2\xc7\x01\n" +
 	"\vUserService\x12d\n" +
 	"\n" +
-	"CreateUser\x12'.registry.identity.v1.CreateUserRequest\x1a(.registry.identity.v1.CreateUserResponse\"\x03\x90\x02\x02BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
+	"CreateUser\x12'.registry.identity.v1.CreateUserRequest\x1a(.registry.identity.v1.CreateUserResponse\"\x03\x90\x02\x02\x12R\n" +
+	"\x04Self\x12!.registry.identity.v1.SelfRequest\x1a\".registry.identity.v1.SelfResponse\"\x03\x90\x02\x02BNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
 
 var (
 	file_registry_identity_v1_user_service_proto_rawDescOnce sync.Once
@@ -136,21 +222,26 @@ func file_registry_identity_v1_user_service_proto_rawDescGZIP() []byte {
 	return file_registry_identity_v1_user_service_proto_rawDescData
 }
 
-var file_registry_identity_v1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_registry_identity_v1_user_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_registry_identity_v1_user_service_proto_goTypes = []any{
 	(*CreateUserRequest)(nil),  // 0: registry.identity.v1.CreateUserRequest
 	(*CreateUserResponse)(nil), // 1: registry.identity.v1.CreateUserResponse
-	(*User)(nil),               // 2: registry.identity.v1.User
+	(*SelfRequest)(nil),        // 2: registry.identity.v1.SelfRequest
+	(*SelfResponse)(nil),       // 3: registry.identity.v1.SelfResponse
+	(*User)(nil),               // 4: registry.identity.v1.User
 }
 var file_registry_identity_v1_user_service_proto_depIdxs = []int32{
-	2, // 0: registry.identity.v1.CreateUserResponse.user:type_name -> registry.identity.v1.User
-	0, // 1: registry.identity.v1.UserService.CreateUser:input_type -> registry.identity.v1.CreateUserRequest
-	1, // 2: registry.identity.v1.UserService.CreateUser:output_type -> registry.identity.v1.CreateUserResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	4, // 0: registry.identity.v1.CreateUserResponse.user:type_name -> registry.identity.v1.User
+	4, // 1: registry.identity.v1.SelfResponse.user:type_name -> registry.identity.v1.User
+	0, // 2: registry.identity.v1.UserService.CreateUser:input_type -> registry.identity.v1.CreateUserRequest
+	2, // 3: registry.identity.v1.UserService.Self:input_type -> registry.identity.v1.SelfRequest
+	1, // 4: registry.identity.v1.UserService.CreateUser:output_type -> registry.identity.v1.CreateUserResponse
+	3, // 5: registry.identity.v1.UserService.Self:output_type -> registry.identity.v1.SelfResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_registry_identity_v1_user_service_proto_init() }
@@ -165,7 +256,7 @@ func file_registry_identity_v1_user_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_identity_v1_user_service_proto_rawDesc), len(file_registry_identity_v1_user_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -35,12 +35,16 @@ const (
 const (
 	// UserServiceCreateUserProcedure is the fully-qualified name of the UserService's CreateUser RPC.
 	UserServiceCreateUserProcedure = "/registry.identity.v1.UserService/CreateUser"
+	// UserServiceSelfProcedure is the fully-qualified name of the UserService's Self RPC.
+	UserServiceSelfProcedure = "/registry.identity.v1.UserService/Self"
 )
 
 // UserServiceClient is a client for the registry.identity.v1.UserService service.
 type UserServiceClient interface {
 	// Create new user.
 	CreateUser(context.Context, *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error)
+	// Get the current authenticated user.
+	Self(context.Context, *connect.Request[v1.SelfRequest]) (*connect.Response[v1.SelfResponse], error)
 }
 
 // NewUserServiceClient constructs a client for the registry.identity.v1.UserService service. By
@@ -61,12 +65,20 @@ func NewUserServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithIdempotency(connect.IdempotencyIdempotent),
 			connect.WithClientOptions(opts...),
 		),
+		self: connect.NewClient[v1.SelfRequest, v1.SelfResponse](
+			httpClient,
+			baseURL+UserServiceSelfProcedure,
+			connect.WithSchema(userServiceMethods.ByName("Self")),
+			connect.WithIdempotency(connect.IdempotencyIdempotent),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // userServiceClient implements UserServiceClient.
 type userServiceClient struct {
 	createUser *connect.Client[v1.CreateUserRequest, v1.CreateUserResponse]
+	self       *connect.Client[v1.SelfRequest, v1.SelfResponse]
 }
 
 // CreateUser calls registry.identity.v1.UserService.CreateUser.
@@ -74,10 +86,17 @@ func (c *userServiceClient) CreateUser(ctx context.Context, req *connect.Request
 	return c.createUser.CallUnary(ctx, req)
 }
 
+// Self calls registry.identity.v1.UserService.Self.
+func (c *userServiceClient) Self(ctx context.Context, req *connect.Request[v1.SelfRequest]) (*connect.Response[v1.SelfResponse], error) {
+	return c.self.CallUnary(ctx, req)
+}
+
 // UserServiceHandler is an implementation of the registry.identity.v1.UserService service.
 type UserServiceHandler interface {
 	// Create new user.
 	CreateUser(context.Context, *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error)
+	// Get the current authenticated user.
+	Self(context.Context, *connect.Request[v1.SelfRequest]) (*connect.Response[v1.SelfResponse], error)
 }
 
 // NewUserServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -94,10 +113,19 @@ func NewUserServiceHandler(svc UserServiceHandler, opts ...connect.HandlerOption
 		connect.WithIdempotency(connect.IdempotencyIdempotent),
 		connect.WithHandlerOptions(opts...),
 	)
+	userServiceSelfHandler := connect.NewUnaryHandler(
+		UserServiceSelfProcedure,
+		svc.Self,
+		connect.WithSchema(userServiceMethods.ByName("Self")),
+		connect.WithIdempotency(connect.IdempotencyIdempotent),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/registry.identity.v1.UserService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case UserServiceCreateUserProcedure:
 			userServiceCreateUserHandler.ServeHTTP(w, r)
+		case UserServiceSelfProcedure:
+			userServiceSelfHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -109,4 +137,8 @@ type UnimplementedUserServiceHandler struct{}
 
 func (UnimplementedUserServiceHandler) CreateUser(context.Context, *connect.Request[v1.CreateUserRequest]) (*connect.Response[v1.CreateUserResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.identity.v1.UserService.CreateUser is not implemented"))
+}
+
+func (UnimplementedUserServiceHandler) Self(context.Context, *connect.Request[v1.SelfRequest]) (*connect.Response[v1.SelfResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.identity.v1.UserService.Self is not implemented"))
 }
