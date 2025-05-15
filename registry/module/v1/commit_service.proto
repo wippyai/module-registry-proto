@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "registry/module/v1/commit.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
+
+// Manage module commits.
+service CommitService {
+  // List commits for specific modules.
+  rpc ListModuleCommits(ListModuleCommitsRequest) returns (ListModuleCommitsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message ListModuleCommitsRequest {
+  // Module IDs to retrieve commits for.
+  repeated string module_ids = 1 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 256,
+    (buf.validate.field).repeated.items.string.uuid = true
+  ];
+}
+
+message ListModuleCommitsResponse {
+  // The listed commits for the requested modules.
+  repeated Commit commits = 1;
+}
