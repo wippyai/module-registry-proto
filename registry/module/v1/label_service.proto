@@ -13,6 +13,11 @@ service LabelService {
   rpc CreateLabel(CreateLabelRequest) returns (CreateLabelResponse) {
     option idempotency_level = IDEMPOTENT;
   }
+
+  // List Labels for multiple Modules.
+  rpc ListModuleLabels(ListModuleLabelsRequest) returns (ListModuleLabelsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
 }
 
 message CreateLabelRequest {
@@ -36,4 +41,19 @@ message CreateLabelRequest {
 
 message CreateLabelResponse {
   Label label = 1;
+}
+
+message ListModuleLabelsRequest {
+  // Filter by module IDs
+  repeated string module_ids = 1 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 256,
+    (buf.validate.field).repeated.unique = true,
+    (buf.validate.field).repeated.items.string.uuid = true
+  ];
+}
+
+message ListModuleLabelsResponse {
+  // The labels matching the request criteria
+  repeated Label labels = 1;
 }

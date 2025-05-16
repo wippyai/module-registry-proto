@@ -36,12 +36,17 @@ const (
 	// LabelServiceCreateLabelProcedure is the fully-qualified name of the LabelService's CreateLabel
 	// RPC.
 	LabelServiceCreateLabelProcedure = "/registry.module.v1.LabelService/CreateLabel"
+	// LabelServiceListModuleLabelsProcedure is the fully-qualified name of the LabelService's
+	// ListModuleLabels RPC.
+	LabelServiceListModuleLabelsProcedure = "/registry.module.v1.LabelService/ListModuleLabels"
 )
 
 // LabelServiceClient is a client for the registry.module.v1.LabelService service.
 type LabelServiceClient interface {
 	// Create Label on a Module.
 	CreateLabel(context.Context, *connect.Request[v1.CreateLabelRequest]) (*connect.Response[v1.CreateLabelResponse], error)
+	// List Labels for multiple Modules.
+	ListModuleLabels(context.Context, *connect.Request[v1.ListModuleLabelsRequest]) (*connect.Response[v1.ListModuleLabelsResponse], error)
 }
 
 // NewLabelServiceClient constructs a client for the registry.module.v1.LabelService service. By
@@ -62,12 +67,20 @@ func NewLabelServiceClient(httpClient connect.HTTPClient, baseURL string, opts .
 			connect.WithIdempotency(connect.IdempotencyIdempotent),
 			connect.WithClientOptions(opts...),
 		),
+		listModuleLabels: connect.NewClient[v1.ListModuleLabelsRequest, v1.ListModuleLabelsResponse](
+			httpClient,
+			baseURL+LabelServiceListModuleLabelsProcedure,
+			connect.WithSchema(labelServiceMethods.ByName("ListModuleLabels")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // labelServiceClient implements LabelServiceClient.
 type labelServiceClient struct {
-	createLabel *connect.Client[v1.CreateLabelRequest, v1.CreateLabelResponse]
+	createLabel      *connect.Client[v1.CreateLabelRequest, v1.CreateLabelResponse]
+	listModuleLabels *connect.Client[v1.ListModuleLabelsRequest, v1.ListModuleLabelsResponse]
 }
 
 // CreateLabel calls registry.module.v1.LabelService.CreateLabel.
@@ -75,10 +88,17 @@ func (c *labelServiceClient) CreateLabel(ctx context.Context, req *connect.Reque
 	return c.createLabel.CallUnary(ctx, req)
 }
 
+// ListModuleLabels calls registry.module.v1.LabelService.ListModuleLabels.
+func (c *labelServiceClient) ListModuleLabels(ctx context.Context, req *connect.Request[v1.ListModuleLabelsRequest]) (*connect.Response[v1.ListModuleLabelsResponse], error) {
+	return c.listModuleLabels.CallUnary(ctx, req)
+}
+
 // LabelServiceHandler is an implementation of the registry.module.v1.LabelService service.
 type LabelServiceHandler interface {
 	// Create Label on a Module.
 	CreateLabel(context.Context, *connect.Request[v1.CreateLabelRequest]) (*connect.Response[v1.CreateLabelResponse], error)
+	// List Labels for multiple Modules.
+	ListModuleLabels(context.Context, *connect.Request[v1.ListModuleLabelsRequest]) (*connect.Response[v1.ListModuleLabelsResponse], error)
 }
 
 // NewLabelServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -95,10 +115,19 @@ func NewLabelServiceHandler(svc LabelServiceHandler, opts ...connect.HandlerOpti
 		connect.WithIdempotency(connect.IdempotencyIdempotent),
 		connect.WithHandlerOptions(opts...),
 	)
+	labelServiceListModuleLabelsHandler := connect.NewUnaryHandler(
+		LabelServiceListModuleLabelsProcedure,
+		svc.ListModuleLabels,
+		connect.WithSchema(labelServiceMethods.ByName("ListModuleLabels")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/registry.module.v1.LabelService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case LabelServiceCreateLabelProcedure:
 			labelServiceCreateLabelHandler.ServeHTTP(w, r)
+		case LabelServiceListModuleLabelsProcedure:
+			labelServiceListModuleLabelsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -110,4 +139,8 @@ type UnimplementedLabelServiceHandler struct{}
 
 func (UnimplementedLabelServiceHandler) CreateLabel(context.Context, *connect.Request[v1.CreateLabelRequest]) (*connect.Response[v1.CreateLabelResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.LabelService.CreateLabel is not implemented"))
+}
+
+func (UnimplementedLabelServiceHandler) ListModuleLabels(context.Context, *connect.Request[v1.ListModuleLabelsRequest]) (*connect.Response[v1.ListModuleLabelsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.LabelService.ListModuleLabels is not implemented"))
 }

@@ -20,6 +20,7 @@ message ListModuleCommitsRequest {
   repeated string module_ids = 1 [
     (buf.validate.field).repeated.min_items = 1,
     (buf.validate.field).repeated.max_items = 256,
+    (buf.validate.field).repeated.unique = true,
     (buf.validate.field).repeated.items.string.uuid = true
   ];
 }

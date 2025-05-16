@@ -126,6 +126,96 @@ func (x *CreateLabelResponse) GetLabel() *Label {
 	return nil
 }
 
+type ListModuleLabelsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Filter by module IDs
+	ModuleIds     []string `protobuf:"bytes,1,rep,name=module_ids,json=moduleIds,proto3" json:"module_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListModuleLabelsRequest) Reset() {
+	*x = ListModuleLabelsRequest{}
+	mi := &file_registry_module_v1_label_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListModuleLabelsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListModuleLabelsRequest) ProtoMessage() {}
+
+func (x *ListModuleLabelsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_label_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListModuleLabelsRequest.ProtoReflect.Descriptor instead.
+func (*ListModuleLabelsRequest) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_label_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ListModuleLabelsRequest) GetModuleIds() []string {
+	if x != nil {
+		return x.ModuleIds
+	}
+	return nil
+}
+
+type ListModuleLabelsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The labels matching the request criteria
+	Labels        []*Label `protobuf:"bytes,1,rep,name=labels,proto3" json:"labels,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListModuleLabelsResponse) Reset() {
+	*x = ListModuleLabelsResponse{}
+	mi := &file_registry_module_v1_label_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListModuleLabelsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListModuleLabelsResponse) ProtoMessage() {}
+
+func (x *ListModuleLabelsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_label_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListModuleLabelsResponse.ProtoReflect.Descriptor instead.
+func (*ListModuleLabelsResponse) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_label_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListModuleLabelsResponse) GetLabels() []*Label {
+	if x != nil {
+		return x.Labels
+	}
+	return nil
+}
+
 var File_registry_module_v1_label_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_label_service_proto_rawDesc = "" +
@@ -136,9 +226,15 @@ const file_registry_module_v1_label_service_proto_rawDesc = "" +
 	"\tcommit_id\x18\x02 \x01(\tB\v\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\bcommitId\x12\xdb\x01\n" +
 	"\x04name\x18\x03 \x01(\tB\xc6\x01\xbaH\xc2\x01\xc8\x01\x01r\xbc\x01\x10\x03\x18<2\xb5\x01^v?(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$R\x04name\"F\n" +
 	"\x13CreateLabelResponse\x12/\n" +
-	"\x05label\x18\x01 \x01(\v2\x19.registry.module.v1.LabelR\x05label2s\n" +
+	"\x05label\x18\x01 \x01(\v2\x19.registry.module.v1.LabelR\x05label\"N\n" +
+	"\x17ListModuleLabelsRequest\x123\n" +
+	"\n" +
+	"module_ids\x18\x01 \x03(\tB\x14\xbaH\x11\x92\x01\x0e\b\x01\x10\x80\x02\x18\x01\"\x05r\x03\xb0\x01\x01R\tmoduleIds\"M\n" +
+	"\x18ListModuleLabelsResponse\x121\n" +
+	"\x06labels\x18\x01 \x03(\v2\x19.registry.module.v1.LabelR\x06labels2\xe7\x01\n" +
 	"\fLabelService\x12c\n" +
-	"\vCreateLabel\x12&.registry.module.v1.CreateLabelRequest\x1a'.registry.module.v1.CreateLabelResponse\"\x03\x90\x02\x02BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
+	"\vCreateLabel\x12&.registry.module.v1.CreateLabelRequest\x1a'.registry.module.v1.CreateLabelResponse\"\x03\x90\x02\x02\x12r\n" +
+	"\x10ListModuleLabels\x12+.registry.module.v1.ListModuleLabelsRequest\x1a,.registry.module.v1.ListModuleLabelsResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_label_service_proto_rawDescOnce sync.Once
@@ -152,21 +248,26 @@ func file_registry_module_v1_label_service_proto_rawDescGZIP() []byte {
 	return file_registry_module_v1_label_service_proto_rawDescData
 }
 
-var file_registry_module_v1_label_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_registry_module_v1_label_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_registry_module_v1_label_service_proto_goTypes = []any{
-	(*CreateLabelRequest)(nil),  // 0: registry.module.v1.CreateLabelRequest
-	(*CreateLabelResponse)(nil), // 1: registry.module.v1.CreateLabelResponse
-	(*Label)(nil),               // 2: registry.module.v1.Label
+	(*CreateLabelRequest)(nil),       // 0: registry.module.v1.CreateLabelRequest
+	(*CreateLabelResponse)(nil),      // 1: registry.module.v1.CreateLabelResponse
+	(*ListModuleLabelsRequest)(nil),  // 2: registry.module.v1.ListModuleLabelsRequest
+	(*ListModuleLabelsResponse)(nil), // 3: registry.module.v1.ListModuleLabelsResponse
+	(*Label)(nil),                    // 4: registry.module.v1.Label
 }
 var file_registry_module_v1_label_service_proto_depIdxs = []int32{
-	2, // 0: registry.module.v1.CreateLabelResponse.label:type_name -> registry.module.v1.Label
-	0, // 1: registry.module.v1.LabelService.CreateLabel:input_type -> registry.module.v1.CreateLabelRequest
-	1, // 2: registry.module.v1.LabelService.CreateLabel:output_type -> registry.module.v1.CreateLabelResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	4, // 0: registry.module.v1.CreateLabelResponse.label:type_name -> registry.module.v1.Label
+	4, // 1: registry.module.v1.ListModuleLabelsResponse.labels:type_name -> registry.module.v1.Label
+	0, // 2: registry.module.v1.LabelService.CreateLabel:input_type -> registry.module.v1.CreateLabelRequest
+	2, // 3: registry.module.v1.LabelService.ListModuleLabels:input_type -> registry.module.v1.ListModuleLabelsRequest
+	1, // 4: registry.module.v1.LabelService.CreateLabel:output_type -> registry.module.v1.CreateLabelResponse
+	3, // 5: registry.module.v1.LabelService.ListModuleLabels:output_type -> registry.module.v1.ListModuleLabelsResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_label_service_proto_init() }
@@ -181,7 +282,7 @@ func file_registry_module_v1_label_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_module_v1_label_service_proto_rawDesc), len(file_registry_module_v1_label_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

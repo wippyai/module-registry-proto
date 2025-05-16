@@ -116,10 +116,10 @@ var File_registry_module_v1_commit_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_commit_service_proto_rawDesc = "" +
 	"\n" +
-	"'registry/module/v1/commit_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/commit.proto\"M\n" +
-	"\x18ListModuleCommitsRequest\x121\n" +
+	"'registry/module/v1/commit_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/commit.proto\"O\n" +
+	"\x18ListModuleCommitsRequest\x123\n" +
 	"\n" +
-	"module_ids\x18\x01 \x03(\tB\x12\xbaH\x0f\x92\x01\f\b\x01\x10\x80\x02\"\x05r\x03\xb0\x01\x01R\tmoduleIds\"Q\n" +
+	"module_ids\x18\x01 \x03(\tB\x14\xbaH\x11\x92\x01\x0e\b\x01\x10\x80\x02\x18\x01\"\x05r\x03\xb0\x01\x01R\tmoduleIds\"Q\n" +
 	"\x19ListModuleCommitsResponse\x124\n" +
 	"\acommits\x18\x01 \x03(\v2\x1a.registry.module.v1.CommitR\acommits2\x86\x01\n" +
 	"\rCommitService\x12u\n" +
