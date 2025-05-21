@@ -36,12 +36,17 @@ const (
 	// CommitServiceListModuleCommitsProcedure is the fully-qualified name of the CommitService's
 	// ListModuleCommits RPC.
 	CommitServiceListModuleCommitsProcedure = "/registry.module.v1.CommitService/ListModuleCommits"
+	// CommitServiceListCommitsProcedure is the fully-qualified name of the CommitService's ListCommits
+	// RPC.
+	CommitServiceListCommitsProcedure = "/registry.module.v1.CommitService/ListCommits"
 )
 
 // CommitServiceClient is a client for the registry.module.v1.CommitService service.
 type CommitServiceClient interface {
 	// List commits for specific modules.
 	ListModuleCommits(context.Context, *connect.Request[v1.ListModuleCommitsRequest]) (*connect.Response[v1.ListModuleCommitsResponse], error)
+	// List commits by their IDs.
+	ListCommits(context.Context, *connect.Request[v1.ListCommitsRequest]) (*connect.Response[v1.ListCommitsResponse], error)
 }
 
 // NewCommitServiceClient constructs a client for the registry.module.v1.CommitService service. By
@@ -62,12 +67,20 @@ func NewCommitServiceClient(httpClient connect.HTTPClient, baseURL string, opts 
 			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 			connect.WithClientOptions(opts...),
 		),
+		listCommits: connect.NewClient[v1.ListCommitsRequest, v1.ListCommitsResponse](
+			httpClient,
+			baseURL+CommitServiceListCommitsProcedure,
+			connect.WithSchema(commitServiceMethods.ByName("ListCommits")),
+			connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+			connect.WithClientOptions(opts...),
+		),
 	}
 }
 
 // commitServiceClient implements CommitServiceClient.
 type commitServiceClient struct {
 	listModuleCommits *connect.Client[v1.ListModuleCommitsRequest, v1.ListModuleCommitsResponse]
+	listCommits       *connect.Client[v1.ListCommitsRequest, v1.ListCommitsResponse]
 }
 
 // ListModuleCommits calls registry.module.v1.CommitService.ListModuleCommits.
@@ -75,10 +88,17 @@ func (c *commitServiceClient) ListModuleCommits(ctx context.Context, req *connec
 	return c.listModuleCommits.CallUnary(ctx, req)
 }
 
+// ListCommits calls registry.module.v1.CommitService.ListCommits.
+func (c *commitServiceClient) ListCommits(ctx context.Context, req *connect.Request[v1.ListCommitsRequest]) (*connect.Response[v1.ListCommitsResponse], error) {
+	return c.listCommits.CallUnary(ctx, req)
+}
+
 // CommitServiceHandler is an implementation of the registry.module.v1.CommitService service.
 type CommitServiceHandler interface {
 	// List commits for specific modules.
 	ListModuleCommits(context.Context, *connect.Request[v1.ListModuleCommitsRequest]) (*connect.Response[v1.ListModuleCommitsResponse], error)
+	// List commits by their IDs.
+	ListCommits(context.Context, *connect.Request[v1.ListCommitsRequest]) (*connect.Response[v1.ListCommitsResponse], error)
 }
 
 // NewCommitServiceHandler builds an HTTP handler from the service implementation. It returns the
@@ -95,10 +115,19 @@ func NewCommitServiceHandler(svc CommitServiceHandler, opts ...connect.HandlerOp
 		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
 		connect.WithHandlerOptions(opts...),
 	)
+	commitServiceListCommitsHandler := connect.NewUnaryHandler(
+		CommitServiceListCommitsProcedure,
+		svc.ListCommits,
+		connect.WithSchema(commitServiceMethods.ByName("ListCommits")),
+		connect.WithIdempotency(connect.IdempotencyNoSideEffects),
+		connect.WithHandlerOptions(opts...),
+	)
 	return "/registry.module.v1.CommitService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case CommitServiceListModuleCommitsProcedure:
 			commitServiceListModuleCommitsHandler.ServeHTTP(w, r)
+		case CommitServiceListCommitsProcedure:
+			commitServiceListCommitsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -110,4 +139,8 @@ type UnimplementedCommitServiceHandler struct{}
 
 func (UnimplementedCommitServiceHandler) ListModuleCommits(context.Context, *connect.Request[v1.ListModuleCommitsRequest]) (*connect.Response[v1.ListModuleCommitsResponse], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.CommitService.ListModuleCommits is not implemented"))
+}
+
+func (UnimplementedCommitServiceHandler) ListCommits(context.Context, *connect.Request[v1.ListCommitsRequest]) (*connect.Response[v1.ListCommitsResponse], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("registry.module.v1.CommitService.ListCommits is not implemented"))
 }

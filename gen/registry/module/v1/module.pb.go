@@ -23,6 +23,91 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Reference to a Module by either ID or name within an organization.
+type ModuleRef struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Value:
+	//
+	//	*ModuleRef_Id
+	//	*ModuleRef_NameRef
+	Value         isModuleRef_Value `protobuf_oneof:"value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ModuleRef) Reset() {
+	*x = ModuleRef{}
+	mi := &file_registry_module_v1_module_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ModuleRef) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ModuleRef) ProtoMessage() {}
+
+func (x *ModuleRef) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_module_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ModuleRef.ProtoReflect.Descriptor instead.
+func (*ModuleRef) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_module_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ModuleRef) GetValue() isModuleRef_Value {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+func (x *ModuleRef) GetId() string {
+	if x != nil {
+		if x, ok := x.Value.(*ModuleRef_Id); ok {
+			return x.Id
+		}
+	}
+	return ""
+}
+
+func (x *ModuleRef) GetNameRef() *ModuleRef_ModuleNameRef {
+	if x != nil {
+		if x, ok := x.Value.(*ModuleRef_NameRef); ok {
+			return x.NameRef
+		}
+	}
+	return nil
+}
+
+type isModuleRef_Value interface {
+	isModuleRef_Value()
+}
+
+type ModuleRef_Id struct {
+	// The ID of the Module.
+	Id string `protobuf:"bytes,1,opt,name=id,proto3,oneof"`
+}
+
+type ModuleRef_NameRef struct {
+	// Reference by module name and organization ID.
+	NameRef *ModuleRef_ModuleNameRef `protobuf:"bytes,2,opt,name=name_ref,json=nameRef,proto3,oneof"`
+}
+
+func (*ModuleRef_Id) isModuleRef_Value() {}
+
+func (*ModuleRef_NameRef) isModuleRef_Value() {}
+
 // A module within the registry.
 type Module struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
@@ -38,7 +123,7 @@ type Module struct {
 
 func (x *Module) Reset() {
 	*x = Module{}
-	mi := &file_registry_module_v1_module_proto_msgTypes[0]
+	mi := &file_registry_module_v1_module_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -50,7 +135,7 @@ func (x *Module) String() string {
 func (*Module) ProtoMessage() {}
 
 func (x *Module) ProtoReflect() protoreflect.Message {
-	mi := &file_registry_module_v1_module_proto_msgTypes[0]
+	mi := &file_registry_module_v1_module_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -63,7 +148,7 @@ func (x *Module) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Module.ProtoReflect.Descriptor instead.
 func (*Module) Descriptor() ([]byte, []int) {
-	return file_registry_module_v1_module_proto_rawDescGZIP(), []int{0}
+	return file_registry_module_v1_module_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Module) GetId() string {
@@ -108,11 +193,73 @@ func (x *Module) GetUpdateTime() *timestamppb.Timestamp {
 	return nil
 }
 
+// Reference to a Module by name and organization ID.
+type ModuleRef_ModuleNameRef struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The Organization ID that the module belongs to.
+	OrganizationId string `protobuf:"bytes,1,opt,name=organization_id,json=organizationId,proto3" json:"organization_id,omitempty"`
+	// The name of the Module.
+	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ModuleRef_ModuleNameRef) Reset() {
+	*x = ModuleRef_ModuleNameRef{}
+	mi := &file_registry_module_v1_module_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ModuleRef_ModuleNameRef) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ModuleRef_ModuleNameRef) ProtoMessage() {}
+
+func (x *ModuleRef_ModuleNameRef) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_module_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ModuleRef_ModuleNameRef.ProtoReflect.Descriptor instead.
+func (*ModuleRef_ModuleNameRef) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_module_proto_rawDescGZIP(), []int{0, 0}
+}
+
+func (x *ModuleRef_ModuleNameRef) GetOrganizationId() string {
+	if x != nil {
+		return x.OrganizationId
+	}
+	return ""
+}
+
+func (x *ModuleRef_ModuleNameRef) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
 var File_registry_module_v1_module_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_module_proto_rawDesc = "" +
 	"\n" +
-	"\x1fregistry/module/v1/module.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xa2\x02\n" +
+	"\x1fregistry/module/v1/module.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdb\x01\n" +
+	"\tModuleRef\x12\x1a\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01H\x00R\x02id\x12H\n" +
+	"\bname_ref\x18\x02 \x01(\v2+.registry.module.v1.ModuleRef.ModuleNameRefH\x00R\anameRef\x1a_\n" +
+	"\rModuleNameRef\x121\n" +
+	"\x0forganization_id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x0eorganizationId\x12\x1b\n" +
+	"\x04name\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x18@R\x04nameB\a\n" +
+	"\x05value\"\xa2\x02\n" +
 	"\x06Module\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01R\x02id\x12\x1b\n" +
 	"\x04name\x18\x02 \x01(\tB\a\xbaH\x04r\x02\x18@R\x04name\x121\n" +
@@ -135,19 +282,22 @@ func file_registry_module_v1_module_proto_rawDescGZIP() []byte {
 	return file_registry_module_v1_module_proto_rawDescData
 }
 
-var file_registry_module_v1_module_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_registry_module_v1_module_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_registry_module_v1_module_proto_goTypes = []any{
-	(*Module)(nil),                // 0: registry.module.v1.Module
-	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
+	(*ModuleRef)(nil),               // 0: registry.module.v1.ModuleRef
+	(*Module)(nil),                  // 1: registry.module.v1.Module
+	(*ModuleRef_ModuleNameRef)(nil), // 2: registry.module.v1.ModuleRef.ModuleNameRef
+	(*timestamppb.Timestamp)(nil),   // 3: google.protobuf.Timestamp
 }
 var file_registry_module_v1_module_proto_depIdxs = []int32{
-	1, // 0: registry.module.v1.Module.create_time:type_name -> google.protobuf.Timestamp
-	1, // 1: registry.module.v1.Module.update_time:type_name -> google.protobuf.Timestamp
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: registry.module.v1.ModuleRef.name_ref:type_name -> registry.module.v1.ModuleRef.ModuleNameRef
+	3, // 1: registry.module.v1.Module.create_time:type_name -> google.protobuf.Timestamp
+	3, // 2: registry.module.v1.Module.update_time:type_name -> google.protobuf.Timestamp
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_module_proto_init() }
@@ -155,13 +305,17 @@ func file_registry_module_v1_module_proto_init() {
 	if File_registry_module_v1_module_proto != nil {
 		return
 	}
+	file_registry_module_v1_module_proto_msgTypes[0].OneofWrappers = []any{
+		(*ModuleRef_Id)(nil),
+		(*ModuleRef_NameRef)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_module_v1_module_proto_rawDesc), len(file_registry_module_v1_module_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

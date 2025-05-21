@@ -24,8 +24,8 @@ const (
 
 type ListModulesRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	// Module IDs to retrieve.
-	ModuleIds     []string `protobuf:"bytes,1,rep,name=module_ids,json=moduleIds,proto3" json:"module_ids,omitempty"`
+	// Module references to retrieve.
+	Refs          []*ModuleRef `protobuf:"bytes,1,rep,name=refs,proto3" json:"refs,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -60,9 +60,9 @@ func (*ListModulesRequest) Descriptor() ([]byte, []int) {
 	return file_registry_module_v1_module_service_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *ListModulesRequest) GetModuleIds() []string {
+func (x *ListModulesRequest) GetRefs() []*ModuleRef {
 	if x != nil {
-		return x.ModuleIds
+		return x.Refs
 	}
 	return nil
 }
@@ -305,10 +305,9 @@ var File_registry_module_v1_module_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_module_service_proto_rawDesc = "" +
 	"\n" +
-	"'registry/module/v1/module_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/module.proto\"G\n" +
-	"\x12ListModulesRequest\x121\n" +
-	"\n" +
-	"module_ids\x18\x01 \x03(\tB\x12\xbaH\x0f\x92\x01\f\b\x01\x10\x80\x02\"\x05r\x03\xb0\x01\x01R\tmoduleIds\"K\n" +
+	"'registry/module/v1/module_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/module.proto\"T\n" +
+	"\x12ListModulesRequest\x12>\n" +
+	"\x04refs\x18\x01 \x03(\v2\x1d.registry.module.v1.ModuleRefB\v\xbaH\b\x92\x01\x05\b\x01\x10\x80\x02R\x04refs\"K\n" +
 	"\x13ListModulesResponse\x124\n" +
 	"\amodules\x18\x01 \x03(\v2\x1a.registry.module.v1.ModuleR\amodules\"_\n" +
 	"\x1eListOrganizationModulesRequest\x12=\n" +
@@ -345,23 +344,25 @@ var file_registry_module_v1_module_service_proto_goTypes = []any{
 	(*ListOrganizationModulesResponse)(nil), // 3: registry.module.v1.ListOrganizationModulesResponse
 	(*CreateModuleRequest)(nil),             // 4: registry.module.v1.CreateModuleRequest
 	(*CreateModuleResponse)(nil),            // 5: registry.module.v1.CreateModuleResponse
-	(*Module)(nil),                          // 6: registry.module.v1.Module
+	(*ModuleRef)(nil),                       // 6: registry.module.v1.ModuleRef
+	(*Module)(nil),                          // 7: registry.module.v1.Module
 }
 var file_registry_module_v1_module_service_proto_depIdxs = []int32{
-	6, // 0: registry.module.v1.ListModulesResponse.modules:type_name -> registry.module.v1.Module
-	6, // 1: registry.module.v1.ListOrganizationModulesResponse.modules:type_name -> registry.module.v1.Module
-	6, // 2: registry.module.v1.CreateModuleResponse.module:type_name -> registry.module.v1.Module
-	4, // 3: registry.module.v1.ModuleService.CreateModule:input_type -> registry.module.v1.CreateModuleRequest
-	0, // 4: registry.module.v1.ModuleService.ListModules:input_type -> registry.module.v1.ListModulesRequest
-	2, // 5: registry.module.v1.ModuleService.ListOrganizationModules:input_type -> registry.module.v1.ListOrganizationModulesRequest
-	5, // 6: registry.module.v1.ModuleService.CreateModule:output_type -> registry.module.v1.CreateModuleResponse
-	1, // 7: registry.module.v1.ModuleService.ListModules:output_type -> registry.module.v1.ListModulesResponse
-	3, // 8: registry.module.v1.ModuleService.ListOrganizationModules:output_type -> registry.module.v1.ListOrganizationModulesResponse
-	6, // [6:9] is the sub-list for method output_type
-	3, // [3:6] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	6, // 0: registry.module.v1.ListModulesRequest.refs:type_name -> registry.module.v1.ModuleRef
+	7, // 1: registry.module.v1.ListModulesResponse.modules:type_name -> registry.module.v1.Module
+	7, // 2: registry.module.v1.ListOrganizationModulesResponse.modules:type_name -> registry.module.v1.Module
+	7, // 3: registry.module.v1.CreateModuleResponse.module:type_name -> registry.module.v1.Module
+	4, // 4: registry.module.v1.ModuleService.CreateModule:input_type -> registry.module.v1.CreateModuleRequest
+	0, // 5: registry.module.v1.ModuleService.ListModules:input_type -> registry.module.v1.ListModulesRequest
+	2, // 6: registry.module.v1.ModuleService.ListOrganizationModules:input_type -> registry.module.v1.ListOrganizationModulesRequest
+	5, // 7: registry.module.v1.ModuleService.CreateModule:output_type -> registry.module.v1.CreateModuleResponse
+	1, // 8: registry.module.v1.ModuleService.ListModules:output_type -> registry.module.v1.ListModulesResponse
+	3, // 9: registry.module.v1.ModuleService.ListOrganizationModules:output_type -> registry.module.v1.ListOrganizationModulesResponse
+	7, // [7:10] is the sub-list for method output_type
+	4, // [4:7] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_module_service_proto_init() }
