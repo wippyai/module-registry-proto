@@ -96,6 +96,91 @@ func (x *Organization) GetUpdateTime() *timestamppb.Timestamp {
 	return nil
 }
 
+// Reference to an Organization by either id or name.
+type OrganizationRef struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Types that are valid to be assigned to Value:
+	//
+	//	*OrganizationRef_Id
+	//	*OrganizationRef_Name
+	Value         isOrganizationRef_Value `protobuf_oneof:"value"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *OrganizationRef) Reset() {
+	*x = OrganizationRef{}
+	mi := &file_registry_identity_v1_organization_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *OrganizationRef) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*OrganizationRef) ProtoMessage() {}
+
+func (x *OrganizationRef) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_identity_v1_organization_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use OrganizationRef.ProtoReflect.Descriptor instead.
+func (*OrganizationRef) Descriptor() ([]byte, []int) {
+	return file_registry_identity_v1_organization_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *OrganizationRef) GetValue() isOrganizationRef_Value {
+	if x != nil {
+		return x.Value
+	}
+	return nil
+}
+
+func (x *OrganizationRef) GetId() string {
+	if x != nil {
+		if x, ok := x.Value.(*OrganizationRef_Id); ok {
+			return x.Id
+		}
+	}
+	return ""
+}
+
+func (x *OrganizationRef) GetName() string {
+	if x != nil {
+		if x, ok := x.Value.(*OrganizationRef_Name); ok {
+			return x.Name
+		}
+	}
+	return ""
+}
+
+type isOrganizationRef_Value interface {
+	isOrganizationRef_Value()
+}
+
+type OrganizationRef_Id struct {
+	// The id of the Organization.
+	Id string `protobuf:"bytes,1,opt,name=id,proto3,oneof"`
+}
+
+type OrganizationRef_Name struct {
+	// The name of the Organization.
+	Name string `protobuf:"bytes,2,opt,name=name,proto3,oneof"`
+}
+
+func (*OrganizationRef_Id) isOrganizationRef_Value() {}
+
+func (*OrganizationRef_Name) isOrganizationRef_Value() {}
+
 var File_registry_identity_v1_organization_proto protoreflect.FileDescriptor
 
 const file_registry_identity_v1_organization_proto_rawDesc = "" +
@@ -107,7 +192,11 @@ const file_registry_identity_v1_organization_proto_rawDesc = "" +
 	"\vcreate_time\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampB\x06\xbaH\x03\xc8\x01\x01R\n" +
 	"createTime\x12C\n" +
 	"\vupdate_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampB\x06\xbaH\x03\xc8\x01\x01R\n" +
-	"updateTimeBNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
+	"updateTime\"r\n" +
+	"\x0fOrganizationRef\x12\x1a\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xbaH\x05r\x03\xb0\x01\x01H\x00R\x02id\x12:\n" +
+	"\x04name\x18\x02 \x01(\tB$\xbaH!r\x1f\x10\x02\x18 2\x19^[a-z][a-z0-9-]*[a-z0-9]$H\x00R\x04nameB\a\n" +
+	"\x05valueBNZLgithub.com/wippyai/module-registry-proto/gen/registry/identity/v1;identityv1b\x06proto3"
 
 var (
 	file_registry_identity_v1_organization_proto_rawDescOnce sync.Once
@@ -121,14 +210,15 @@ func file_registry_identity_v1_organization_proto_rawDescGZIP() []byte {
 	return file_registry_identity_v1_organization_proto_rawDescData
 }
 
-var file_registry_identity_v1_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_registry_identity_v1_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_registry_identity_v1_organization_proto_goTypes = []any{
 	(*Organization)(nil),          // 0: registry.identity.v1.Organization
-	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
+	(*OrganizationRef)(nil),       // 1: registry.identity.v1.OrganizationRef
+	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 }
 var file_registry_identity_v1_organization_proto_depIdxs = []int32{
-	1, // 0: registry.identity.v1.Organization.create_time:type_name -> google.protobuf.Timestamp
-	1, // 1: registry.identity.v1.Organization.update_time:type_name -> google.protobuf.Timestamp
+	2, // 0: registry.identity.v1.Organization.create_time:type_name -> google.protobuf.Timestamp
+	2, // 1: registry.identity.v1.Organization.update_time:type_name -> google.protobuf.Timestamp
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -141,13 +231,17 @@ func file_registry_identity_v1_organization_proto_init() {
 	if File_registry_identity_v1_organization_proto != nil {
 		return
 	}
+	file_registry_identity_v1_organization_proto_msgTypes[1].OneofWrappers = []any{
+		(*OrganizationRef_Id)(nil),
+		(*OrganizationRef_Name)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_identity_v1_organization_proto_rawDesc), len(file_registry_identity_v1_organization_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   1,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

@@ -39,7 +39,10 @@ message CreateOrganizationResponse {
   Organization organization = 1;
 }
 
-message ListOrganizationsRequest {}
+message ListOrganizationsRequest {
+  // Filter by specific organization references (id or name). Return all if empty.
+  repeated OrganizationRef refs = 1;
+}
 
 message ListOrganizationsResponse {
   // The listed Organizations.

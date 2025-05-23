@@ -13,6 +13,11 @@ service CommitService {
   rpc ListModuleCommits(ListModuleCommitsRequest) returns (ListModuleCommitsResponse) {
     option idempotency_level = NO_SIDE_EFFECTS;
   }
+
+  // List commits by their IDs.
+  rpc ListCommits(ListCommitsRequest) returns (ListCommitsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
 }
 
 message ListModuleCommitsRequest {
@@ -27,5 +32,20 @@ message ListModuleCommitsRequest {
 
 message ListModuleCommitsResponse {
   // The listed commits for the requested modules.
+  repeated Commit commits = 1;
+}
+
+message ListCommitsRequest {
+  // Commit IDs to retrieve.
+  repeated string commit_ids = 1 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 256,
+    (buf.validate.field).repeated.unique = true,
+    (buf.validate.field).repeated.items.string.uuid = true
+  ];
+}
+
+message ListCommitsResponse {
+  // The listed commits.
   repeated Commit commits = 1;
 }

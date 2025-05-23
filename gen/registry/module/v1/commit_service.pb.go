@@ -112,6 +112,96 @@ func (x *ListModuleCommitsResponse) GetCommits() []*Commit {
 	return nil
 }
 
+type ListCommitsRequest struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// Commit IDs to retrieve.
+	CommitIds     []string `protobuf:"bytes,1,rep,name=commit_ids,json=commitIds,proto3" json:"commit_ids,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCommitsRequest) Reset() {
+	*x = ListCommitsRequest{}
+	mi := &file_registry_module_v1_commit_service_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCommitsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCommitsRequest) ProtoMessage() {}
+
+func (x *ListCommitsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_commit_service_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCommitsRequest.ProtoReflect.Descriptor instead.
+func (*ListCommitsRequest) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_commit_service_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ListCommitsRequest) GetCommitIds() []string {
+	if x != nil {
+		return x.CommitIds
+	}
+	return nil
+}
+
+type ListCommitsResponse struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// The listed commits.
+	Commits       []*Commit `protobuf:"bytes,1,rep,name=commits,proto3" json:"commits,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListCommitsResponse) Reset() {
+	*x = ListCommitsResponse{}
+	mi := &file_registry_module_v1_commit_service_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListCommitsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListCommitsResponse) ProtoMessage() {}
+
+func (x *ListCommitsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_registry_module_v1_commit_service_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListCommitsResponse.ProtoReflect.Descriptor instead.
+func (*ListCommitsResponse) Descriptor() ([]byte, []int) {
+	return file_registry_module_v1_commit_service_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ListCommitsResponse) GetCommits() []*Commit {
+	if x != nil {
+		return x.Commits
+	}
+	return nil
+}
+
 var File_registry_module_v1_commit_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_commit_service_proto_rawDesc = "" +
@@ -121,9 +211,15 @@ const file_registry_module_v1_commit_service_proto_rawDesc = "" +
 	"\n" +
 	"module_ids\x18\x01 \x03(\tB\x14\xbaH\x11\x92\x01\x0e\b\x01\x10\x80\x02\x18\x01\"\x05r\x03\xb0\x01\x01R\tmoduleIds\"Q\n" +
 	"\x19ListModuleCommitsResponse\x124\n" +
-	"\acommits\x18\x01 \x03(\v2\x1a.registry.module.v1.CommitR\acommits2\x86\x01\n" +
+	"\acommits\x18\x01 \x03(\v2\x1a.registry.module.v1.CommitR\acommits\"I\n" +
+	"\x12ListCommitsRequest\x123\n" +
+	"\n" +
+	"commit_ids\x18\x01 \x03(\tB\x14\xbaH\x11\x92\x01\x0e\b\x01\x10\x80\x02\x18\x01\"\x05r\x03\xb0\x01\x01R\tcommitIds\"K\n" +
+	"\x13ListCommitsResponse\x124\n" +
+	"\acommits\x18\x01 \x03(\v2\x1a.registry.module.v1.CommitR\acommits2\xeb\x01\n" +
 	"\rCommitService\x12u\n" +
-	"\x11ListModuleCommits\x12,.registry.module.v1.ListModuleCommitsRequest\x1a-.registry.module.v1.ListModuleCommitsResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
+	"\x11ListModuleCommits\x12,.registry.module.v1.ListModuleCommitsRequest\x1a-.registry.module.v1.ListModuleCommitsResponse\"\x03\x90\x02\x01\x12c\n" +
+	"\vListCommits\x12&.registry.module.v1.ListCommitsRequest\x1a'.registry.module.v1.ListCommitsResponse\"\x03\x90\x02\x01BJZHgithub.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1b\x06proto3"
 
 var (
 	file_registry_module_v1_commit_service_proto_rawDescOnce sync.Once
@@ -137,21 +233,26 @@ func file_registry_module_v1_commit_service_proto_rawDescGZIP() []byte {
 	return file_registry_module_v1_commit_service_proto_rawDescData
 }
 
-var file_registry_module_v1_commit_service_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_registry_module_v1_commit_service_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_registry_module_v1_commit_service_proto_goTypes = []any{
 	(*ListModuleCommitsRequest)(nil),  // 0: registry.module.v1.ListModuleCommitsRequest
 	(*ListModuleCommitsResponse)(nil), // 1: registry.module.v1.ListModuleCommitsResponse
-	(*Commit)(nil),                    // 2: registry.module.v1.Commit
+	(*ListCommitsRequest)(nil),        // 2: registry.module.v1.ListCommitsRequest
+	(*ListCommitsResponse)(nil),       // 3: registry.module.v1.ListCommitsResponse
+	(*Commit)(nil),                    // 4: registry.module.v1.Commit
 }
 var file_registry_module_v1_commit_service_proto_depIdxs = []int32{
-	2, // 0: registry.module.v1.ListModuleCommitsResponse.commits:type_name -> registry.module.v1.Commit
-	0, // 1: registry.module.v1.CommitService.ListModuleCommits:input_type -> registry.module.v1.ListModuleCommitsRequest
-	1, // 2: registry.module.v1.CommitService.ListModuleCommits:output_type -> registry.module.v1.ListModuleCommitsResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	4, // 0: registry.module.v1.ListModuleCommitsResponse.commits:type_name -> registry.module.v1.Commit
+	4, // 1: registry.module.v1.ListCommitsResponse.commits:type_name -> registry.module.v1.Commit
+	0, // 2: registry.module.v1.CommitService.ListModuleCommits:input_type -> registry.module.v1.ListModuleCommitsRequest
+	2, // 3: registry.module.v1.CommitService.ListCommits:input_type -> registry.module.v1.ListCommitsRequest
+	1, // 4: registry.module.v1.CommitService.ListModuleCommits:output_type -> registry.module.v1.ListModuleCommitsResponse
+	3, // 5: registry.module.v1.CommitService.ListCommits:output_type -> registry.module.v1.ListCommitsResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_commit_service_proto_init() }
@@ -166,7 +267,7 @@ func file_registry_module_v1_commit_service_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_registry_module_v1_commit_service_proto_rawDesc), len(file_registry_module_v1_commit_service_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

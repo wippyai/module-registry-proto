@@ -7,6 +7,26 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/wippyai/module-registry-proto/gen/registry/module/v1;modulev1";
 
+// Reference to a Module by either ID or name within an organization.
+message ModuleRef {
+  // Reference to a Module by name and organization ID.
+  message ModuleNameRef {
+    // The Organization ID that the module belongs to.
+    string organization_id = 1 [(buf.validate.field).string.uuid = true];
+
+    // The name of the Module.
+    string name = 2 [(buf.validate.field).string.max_len = 64];
+  }
+
+  oneof value {
+    // The ID of the Module.
+    string id = 1 [(buf.validate.field).string.uuid = true];
+
+    // Reference by module name and organization ID.
+    ModuleNameRef name_ref = 2;
+  }
+}
+
 // A module within the registry.
 message Module {
   string id = 1 [(buf.validate.field).string.uuid = true];

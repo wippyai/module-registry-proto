@@ -24,7 +24,7 @@ const (
 
 type DownloadRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	ResourceRefs  []*ResourceRef         `protobuf:"bytes,1,rep,name=resource_refs,json=resourceRefs,proto3" json:"resource_refs,omitempty"`
+	CommitIds     []string               `protobuf:"bytes,1,rep,name=commit_ids,json=commitIds,proto3" json:"commit_ids,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -59,9 +59,9 @@ func (*DownloadRequest) Descriptor() ([]byte, []int) {
 	return file_registry_module_v1_download_service_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *DownloadRequest) GetResourceRefs() []*ResourceRef {
+func (x *DownloadRequest) GetCommitIds() []string {
 	if x != nil {
-		return x.ResourceRefs
+		return x.CommitIds
 	}
 	return nil
 }
@@ -170,9 +170,10 @@ var File_registry_module_v1_download_service_proto protoreflect.FileDescriptor
 
 const file_registry_module_v1_download_service_proto_rawDesc = "" +
 	"\n" +
-	")registry/module/v1/download_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/commit.proto\x1a\x1dregistry/module/v1/file.proto\x1a!registry/module/v1/resource.proto\"d\n" +
-	"\x0fDownloadRequest\x12Q\n" +
-	"\rresource_refs\x18\x01 \x03(\v2\x1f.registry.module.v1.ResourceRefB\v\xbaH\b\x92\x01\x05\b\x01\x10\x80\x02R\fresourceRefs\"\xdd\x01\n" +
+	")registry/module/v1/download_service.proto\x12\x12registry.module.v1\x1a\x1bbuf/validate/validate.proto\x1a\x1fregistry/module/v1/commit.proto\x1a\x1dregistry/module/v1/file.proto\"=\n" +
+	"\x0fDownloadRequest\x12*\n" +
+	"\n" +
+	"commit_ids\x18\x01 \x03(\tB\v\xbaH\b\x92\x01\x05\b\x01\x10\x80\x02R\tcommitIds\"\xdd\x01\n" +
 	"\x10DownloadResponse\x12R\n" +
 	"\bcontents\x18\x01 \x03(\v2,.registry.module.v1.DownloadResponse.ContentB\b\xbaH\x05\x92\x01\x02\b\x01R\bcontents\x1au\n" +
 	"\aContent\x12:\n" +
@@ -198,22 +199,20 @@ var file_registry_module_v1_download_service_proto_goTypes = []any{
 	(*DownloadRequest)(nil),          // 0: registry.module.v1.DownloadRequest
 	(*DownloadResponse)(nil),         // 1: registry.module.v1.DownloadResponse
 	(*DownloadResponse_Content)(nil), // 2: registry.module.v1.DownloadResponse.Content
-	(*ResourceRef)(nil),              // 3: registry.module.v1.ResourceRef
-	(*Commit)(nil),                   // 4: registry.module.v1.Commit
-	(*File)(nil),                     // 5: registry.module.v1.File
+	(*Commit)(nil),                   // 3: registry.module.v1.Commit
+	(*File)(nil),                     // 4: registry.module.v1.File
 }
 var file_registry_module_v1_download_service_proto_depIdxs = []int32{
-	3, // 0: registry.module.v1.DownloadRequest.resource_refs:type_name -> registry.module.v1.ResourceRef
-	2, // 1: registry.module.v1.DownloadResponse.contents:type_name -> registry.module.v1.DownloadResponse.Content
-	4, // 2: registry.module.v1.DownloadResponse.Content.commit:type_name -> registry.module.v1.Commit
-	5, // 3: registry.module.v1.DownloadResponse.Content.files:type_name -> registry.module.v1.File
-	0, // 4: registry.module.v1.DownloadService.Download:input_type -> registry.module.v1.DownloadRequest
-	1, // 5: registry.module.v1.DownloadService.Download:output_type -> registry.module.v1.DownloadResponse
-	5, // [5:6] is the sub-list for method output_type
-	4, // [4:5] is the sub-list for method input_type
-	4, // [4:4] is the sub-list for extension type_name
-	4, // [4:4] is the sub-list for extension extendee
-	0, // [0:4] is the sub-list for field type_name
+	2, // 0: registry.module.v1.DownloadResponse.contents:type_name -> registry.module.v1.DownloadResponse.Content
+	3, // 1: registry.module.v1.DownloadResponse.Content.commit:type_name -> registry.module.v1.Commit
+	4, // 2: registry.module.v1.DownloadResponse.Content.files:type_name -> registry.module.v1.File
+	0, // 3: registry.module.v1.DownloadService.Download:input_type -> registry.module.v1.DownloadRequest
+	1, // 4: registry.module.v1.DownloadService.Download:output_type -> registry.module.v1.DownloadResponse
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_registry_module_v1_download_service_proto_init() }
@@ -223,7 +222,6 @@ func file_registry_module_v1_download_service_proto_init() {
 	}
 	file_registry_module_v1_commit_proto_init()
 	file_registry_module_v1_file_proto_init()
-	file_registry_module_v1_resource_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
