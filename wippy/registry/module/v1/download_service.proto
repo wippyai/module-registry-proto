@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package wippy.registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "wippy/registry/module/v1/commit.proto";
+import "wippy/registry/module/v1/file.proto";
+
+// Download module contents.
+service DownloadService {
+  // Download the contents of multiple Modules.
+  rpc Download(DownloadRequest) returns (DownloadResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message DownloadRequest {
+  repeated string commit_ids = 1 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 256
+  ];
+}
+
+message DownloadResponse {
+  // Content for a single Commit.
+  message Content {
+    // The Commit associated with the Content.
+    Commit commit = 1 [(buf.validate.field).required = true];
+    // The Files of the content.
+    repeated File files = 2;
+  }
+  // The Contents of the references in the same order as requested.
+  repeated Content contents = 1 [(buf.validate.field).repeated.min_items = 1];
+}

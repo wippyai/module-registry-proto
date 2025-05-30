@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package wippy.registry.module.v1;
+
+import "buf/validate/validate.proto";
+import "wippy/registry/module/v1/commit.proto";
+import "wippy/registry/module/v1/file.proto";
+
+// Upload contents.
+service UploadService {
+  // Upload contents for the given Module.
+  rpc Upload(UploadRequest) returns (UploadResponse) {}
+
+  // Upload archive contents for the given Module.
+  // This allows uploading compressed archive files that will be extracted server-side.
+  rpc UploadArchive(UploadArchiveRequest) returns (UploadArchiveResponse) {}
+}
+
+message UploadRequest {
+  // The ID of the Module.
+  string module_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+  // The Files of the Content.
+  repeated File files = 2 [(buf.validate.field).repeated.min_items = 1];
+}
+
+message UploadResponse {
+  // The created commit
+  Commit commit = 1;
+}
+
+message UploadArchiveRequest {
+  // Enumeration of supported archive formats
+  enum ArchiveFormat {
+    ARCHIVE_FORMAT_UNSPECIFIED = 0;
+    ARCHIVE_FORMAT_ZIP = 1;
+  }
+
+  // The ID of the Module.
+  string module_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // Archive content to be uploaded and extracted.
+  // Supported formats include .zip, .tar, .tar.gz, .tgz
+  bytes archive_content = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).bytes.max_len = 12000000 // 12MB
+  ];
+
+  // Format of the archive.
+  ArchiveFormat format = 3 [(buf.validate.field).required = true];
+}
+
+message UploadArchiveResponse {
+  // The created commit
+  Commit commit = 1;
+
+  // Number of files extracted from the archive
+  int32 extracted_files_count = 2;
+}

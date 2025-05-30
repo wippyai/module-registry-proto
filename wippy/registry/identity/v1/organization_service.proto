@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package wippy.registry.identity.v1;
+
+import "buf/validate/validate.proto";
+import "wippy/registry/identity/v1/organization.proto";
+
+// Organization management operations.
+service OrganizationService {
+  // Create new organization.
+  rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse) {
+    option idempotency_level = IDEMPOTENT;
+  }
+
+  // List all organizations.
+  rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+message CreateOrganizationRequest {
+  // Organization name
+  string name = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 2,
+    (buf.validate.field).string.max_len = 32,
+    (buf.validate.field).string.pattern = "^[a-z][a-z0-9-]*[a-z0-9]$"
+  ];
+}
+
+message CreateOrganizationResponse {
+  Organization organization = 1;
+}
+
+message ListOrganizationsRequest {
+  // Filter by specific organization references (id or name). Return all if empty.
+  repeated OrganizationRef refs = 1;
+}
+
+message ListOrganizationsResponse {
+  // The listed Organizations.
+  repeated Organization organizations = 1;
+}
