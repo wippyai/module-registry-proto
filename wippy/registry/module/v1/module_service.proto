@@ -5,6 +5,8 @@ package wippy.registry.module.v1;
 import "buf/validate/validate.proto";
 import "wippy/registry/module/v1/module.proto";
 
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/module/v1;modulev1";
+
 // Manage modules.
 service ModuleService {
   // Create new Module.

@@ -5,6 +5,8 @@ package wippy.registry.identity.v1;
 import "buf/validate/validate.proto";
 import "wippy/registry/identity/v1/organization.proto";
 
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/identity/v1;identityv1";
+
 // Organization management operations.
 service OrganizationService {
   // Create new organization.

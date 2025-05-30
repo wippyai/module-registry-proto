@@ -5,6 +5,8 @@ package wippy.registry.module.v1;
 import "buf/validate/validate.proto";
 import "wippy/registry/module/v1/label.proto";
 
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/module/v1;modulev1";
+
 // Operate on Labels.
 service LabelService {
   // Create Label on a Module.

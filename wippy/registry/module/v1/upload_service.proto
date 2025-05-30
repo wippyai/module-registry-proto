@@ -6,6 +6,8 @@ import "buf/validate/validate.proto";
 import "wippy/registry/module/v1/commit.proto";
 import "wippy/registry/module/v1/file.proto";
 
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/module/v1;modulev1";
+
 // Upload contents.
 service UploadService {
   // Upload contents for the given Module.

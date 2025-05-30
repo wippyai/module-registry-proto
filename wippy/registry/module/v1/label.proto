@@ -4,6 +4,8 @@ package wippy.registry.module.v1;
 
 import "google/protobuf/timestamp.proto";
 
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/module/v1;modulev1";
+
 // A label on a specific Module.
 // Many Labels can be associated with one Commit.
 message Label {

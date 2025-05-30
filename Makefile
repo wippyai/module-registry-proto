@@ -18,8 +18,8 @@ lint: $(BIN)/buf ## Lint all APIs
 	buf lint
 	buf format -d --exit-code
 
-.PHONY: upgrade
-upgrade: $(BIN)/buf ## Upgrade dependencies
+.PHONY: update
+update: $(BIN)/buf ## Update dependencies
 	buf dep update
 
 $(BIN)/buf: Makefile

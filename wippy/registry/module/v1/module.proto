@@ -5,6 +5,8 @@ package wippy.registry.module.v1;
 import "buf/validate/validate.proto";
 import "google/protobuf/timestamp.proto";
 
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/module/v1;modulev1";
+
 // Reference to a Module by either ID or name within an organization.
 message ModuleRef {
   // Reference to a Module by name and organization ID.
