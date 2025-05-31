@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package wippy.registry.identity.v1;
+
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/identity/v1;identityv1";
+
+// Role of a user in an organization.
+enum OrganizationRole {
+  // Unspecified role.
+  ORGANIZATION_ROLE_UNSPECIFIED = 0;
+
+  // Owner role - can manage organization and all members.
+  ORGANIZATION_ROLE_OWNER = 1;
+
+  // Regular member role - limited permissions.
+  ORGANIZATION_ROLE_MEMBER = 2;
+}

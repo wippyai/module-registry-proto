@@ -25,4 +25,3 @@ update: $(BIN)/buf ## Update dependencies
 $(BIN)/buf: Makefile
 	@mkdir -p $(@D)
 	@go install github.com/bufbuild/buf/cmd/buf@latest
-

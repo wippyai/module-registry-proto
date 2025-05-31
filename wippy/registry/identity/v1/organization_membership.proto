@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package wippy.registry.identity.v1;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "wippy/registry/identity/v1/organization_role.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/identity/v1;identityv1";
+
+// Represents a user's membership in an organization.
+message OrganizationMembership {
+  // The id of the membership.
+  string id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // The id of the organization.
+  string organization_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // The id of the user.
+  string user_id = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  // The role of the user in the organization.
+  OrganizationRole role = 4 [(buf.validate.field).required = true];
+
+  // The time the membership was created.
+  google.protobuf.Timestamp create_time = 5 [(buf.validate.field).required = true];
+
+  // The last time the membership was updated.
+  google.protobuf.Timestamp update_time = 6 [(buf.validate.field).required = true];
+}

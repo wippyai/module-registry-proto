@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package wippy.registry.identity.v1;
+
+import "buf/validate/validate.proto";
+import "wippy/registry/identity/v1/user.proto";
+
+option go_package = "github.com/wippyai/module-registry-proto-go/registry/identity/v1;identityv1";
+
+// User management operations.
+service UserService {
+  // Get the current authenticated user.
+  rpc Self(SelfRequest) returns (SelfResponse) {
+    option idempotency_level = NO_SIDE_EFFECTS;
+  }
+}
+
+// Request to get the currently authenticated user.
+message SelfRequest {}
+
+// Response containing the authenticated user's information.
+message SelfResponse {
+  User user = 1;
+}
